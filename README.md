@@ -15,7 +15,7 @@ This script depends on the following tools:
 
 All of these tools are installable via [BioConda](https://bioconda.github.io).
 
-Install them however you see fit. They are expected to be in your path.
+Install them however is most convinent for you. They are expected to be in your path.
 
 ## Running
 Given paired FASTQ's and a reference FASTA, run:
