@@ -8,10 +8,10 @@ This repo hosts a shell script (`qc.bash`), that can be used to perform quick QC
 
 This script depends on the following tools:
 
-[BWA](https://github.com/lh3/bwa)
-[samtools](https://github.com/samtools)
-[samblaster](https://github.com/GregoryFaust/samblaster)
-[preseq](http://smithlabresearch.org/software/preseq/)
+- [BWA](https://github.com/lh3/bwa)
+- [samtools](https://github.com/samtools)
+- [samblaster](https://github.com/GregoryFaust/samblaster)
+- [preseq](http://smithlabresearch.org/software/preseq/)
 
 All of these tools are installable via [BioConda](https://bioconda.github.io).
 
