@@ -39,8 +39,7 @@ trans pairs          : 636420
 Expected unique pairs at 300M sequencing:  229193577.2
 ```
 
-We consider a library to be good if:
+We consider a library to be acceptable if:
 
-- cis pairs >1000 bp is greater than XX% of the total
-- trans pairs is less than XX% of the total
-- Expected unique pairs at 300M sequencing is ~200 million
+- cis pairs >1000 bp is greater than 20% of the total (usually much higher)
+- Expected unique pairs at 300M sequencing is ~120 million
