@@ -20,7 +20,7 @@ samtools index $out ;
 preseq lc_extrap -B -P -e 2.1e9 -s 1e8 -seg_len 1000000000 -o $out.preseq $out
 
 ps300m=`cat $out.preseq | grep -P "^300000000.0" | awk '{print $2}'`
-
+ 
 gt10000=`samtools view -f 64 -F 3328 $out | awk '{if ($9 > 10000) { print; }}' | wc -l`
 gt1000=`samtools view -f 64 -F 3328 $out | awk  '{if ($9 > 1000) { print; }}' | wc -l`
 gt0=`samtools view -f 64 -F 3328 $out | awk  '{if ($9 > 0) { print; }}' | wc -l`
