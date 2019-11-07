@@ -27,6 +27,7 @@ gt0=`samtools view -f 64 -F 3328 $out | awk  '{if ($9 > 0) { print; }}' | wc -l`
 trans=`samtools view -f 64 -F 3328 $out | awk  '{if ($9 == 0) { print; }}' | wc -l`
 
 echo; echo;
+echo "valid pairs          :" `expr $trans + $gt1000`
 echo "cis pairs            :" $gt0
 echo "cis pairs >1000 bp   :" $gt1000
 echo "cis pairs >10000 bp  :" $gt10000
