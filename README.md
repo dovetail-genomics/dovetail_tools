@@ -31,6 +31,7 @@ Substitute appropriate file names. READGROUP name is arbitrary.
 After the script completes, it will print:
 
 ```
+valid pairs          : 1728579
 cis pairs            : 1891025
 cis pairs >1000 bp   : 1092159
 cis pairs >10000 bp  : 978995
