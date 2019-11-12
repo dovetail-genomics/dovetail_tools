@@ -2,7 +2,7 @@
 ![Omni-C](png/banner.png?raw=true "Omni-C")   
 ## Description
 
-This repo hosts a shell script (`qc.bash`), that can be used to perform quick QC on shallowly sequenced Omni-C libraries.
+This repo hosts a shell script (`omni-c_qc.bash`), that can be used to perform quick QC on shallowly sequenced Omni-C libraries.
 
 ## Requirements
 
