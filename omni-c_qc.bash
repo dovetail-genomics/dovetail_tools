@@ -29,8 +29,8 @@ trans=`samtools view -f 64 -F 3328 $out | awk  '{if ($9 == 0) { print; }}' | wc 
 echo; echo;
 echo "valid pairs          :" `expr $trans + $gt1000`
 echo "cis pairs            :" $gt0
-echo "cis pairs >1000 bp   :" $gt1000
-echo "cis pairs >10000 bp  :" $gt10000
-echo "trans pairs          :" $trans
+echo "cis pairs >1000 bp   :" $gt1000 "(" $(($gt1000 / $gt0)) "% of total cis reads)"
+echo "cis pairs >10000 bp  :" $gt10000  "(" $(($gt10000 / $gt0)) "% of total cis reads)"
+echo "trans pairs          :" $trans 
 
 echo "Expected unique pairs at 300M sequencing: " $ps300m
