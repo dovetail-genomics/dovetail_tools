@@ -2,7 +2,7 @@
 ![Omni-C](png/banner.png?raw=true "Omni-C")   
 ## Description
 
-This repo hosts a shell script (`qc.bash`), that can be used to perform quick QC on shallowly sequenced Omni-C libraries.
+This repo hosts a shell script (`omni-c_qc.bash`), that can be used to perform quick QC on shallowly sequenced Omni-C libraries.
 
 ## Requirements
 
@@ -42,5 +42,5 @@ Expected unique pairs at 300M sequencing:  229193577.2
 
 We consider a library to be acceptable if:
 
-- cis pairs >1000 bp is greater than 20% of the total (usually much higher)
+- cis pairs >1000 bp is greater than 20% of the total cis pairs.
 - Expected unique pairs at 300M sequencing is ~120 million
