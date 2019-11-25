@@ -21,7 +21,7 @@ Install them however is most convinent for you. They are expected to be in your 
 Given paired FASTQ's and a reference FASTA, run:
 
 ```
-./qc.bash reference.fasta read1.fastq.gz read2.fastq.gz output.bam READGROUP_NAME
+./omni-c_qc.bash reference.fasta read1.fastq.gz read2.fastq.gz output.bam READGROUP_NAME
 ```
 
 Substitute appropriate file names. READGROUP name is arbitrary.
