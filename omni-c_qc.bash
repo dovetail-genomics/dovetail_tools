@@ -37,12 +37,12 @@ valid_pairs=$(($mapped_nondupe_pairs_cis_gt1000 + $mapped_trans_pairs))
 echo "Read1                             :" $r1
 echo "Read2                             :" $r2
 echo "Mapped pairs                      :" $mapped_pairs
-echo "PCR dupe pairs                    :" $pcr_dupe_pairs `echo $pcr_dupe_pairs $mapped_pairs | awk '{printf "%0.2f", $1 / $2}'`
+echo "PCR dupe pairs                    :" $pcr_dupe_pairs
 echo "Mapped nondupe pairs              :" $mapped_nondupe_pairs
-echo "Valid Pairs (cis>1000bp + trans)  :" $valid_pairs `echo $valid_pairs $mapped_nondupe_pairs | awk '{printf "%0.2f", $1 / $2}'`
-echo "Mapped nondupe pairs cis          :" $mapped_nondupe_pairs_cis `echo $mapped_nondupe_pairs_cis $mapped_nondupe_pairs | awk '{printf "%0.2f", $1 / $2}'`
-echo "Mapped nondupe pairs cis <=1000bp :" $mapped_nondupe_pairs_cis_lt1000 `echo $mapped_nondupe_pairs_cis_lt1000 $mapped_nondupe_pairs | awk '{printf "%0.2f", $1 / $2}'`
-echo "Mapped nondupe pairs cis >1000bp  :" $mapped_nondupe_pairs_cis_gt1000 `echo $mapped_nondupe_pairs_cis_gt1000 $mapped_nondupe_pairs | awk '{printf "%0.2f", $1 / $2}'`
-echo "Mapped nondupe pairs cis >10000bp :" $mapped_nondupe_pairs_cis_gt10000 `echo $mapped_nondupe_pairs_cis_gt10000 $mapped_nondupe_pairs | awk '{printf "%0.2f", $1 / $2}'`
-echo "Mapped nondupe trans pairs        :" $mapped_trans_pairs `echo $mapped_trans_pairs $mapped_nondupe_pairs | awk '{printf "%0.2f", $1 / $2}'`
+echo "Valid Pairs (cis>1000bp + trans)  :" $valid_pairs
+echo "Mapped nondupe pairs cis          :" $mapped_nondupe_pairs_cis
+echo "Mapped nondupe pairs cis <=1000bp :" $mapped_nondupe_pairs_cis_lt1000
+echo "Mapped nondupe pairs cis >1000bp  :" $mapped_nondupe_pairs_cis_gt1000
+echo "Mapped nondupe pairs cis >10000bp :" $mapped_nondupe_pairs_cis_gt10000
+echo "Mapped nondupe trans pairs        :" $mapped_trans_pairs
 echo "Expected unique pairs at 300M sequencing: " $ps300m
