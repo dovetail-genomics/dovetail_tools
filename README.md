@@ -1,5 +1,4 @@
 # Omni-C QC
-![Omni-C](png/banner.png?raw=true "Omni-C")   
 ## Description
 
 This repo hosts a shell script (`omni-c_qc.bash`), that can be used to perform quick QC on shallowly sequenced Omni-C libraries.
@@ -21,7 +20,7 @@ Install them however is most convinent for you. They are expected to be in your 
 Given paired FASTQ's and a reference FASTA, run:
 
 ```
-./qc.bash reference.fasta read1.fastq.gz read2.fastq.gz output.bam READGROUP_NAME
+./omni-c_qc.bash reference.fasta read1.fastq.gz read2.fastq.gz output.bam READGROUP_NAME
 ```
 
 Substitute appropriate file names. READGROUP name is arbitrary.
@@ -31,13 +30,18 @@ Substitute appropriate file names. READGROUP name is arbitrary.
 After the script completes, it will print:
 
 ```
-valid pairs          : 1728579
-cis pairs            : 1891025
-cis pairs >1000 bp   : 1092159
-cis pairs >10000 bp  : 978995
-trans pairs          : 636420
-
-Expected unique pairs at 300M sequencing:  229193577.2
+Read1                             : 5417421
+Read2                             : 5417421
+Mapped pairs                      : 5400976
+PCR dupe pairs                    : 12293
+Mapped nondupe pairs              : 5388683
+Valid Pairs (cis>1000bp + trans)  : 4930332
+Mapped nondupe pairs cis          : 4090918
+Mapped nondupe pairs cis <=1000bp : 458351
+Mapped nondupe pairs cis >1000bp  : 3632567
+Mapped nondupe pairs cis >10000bp : 2751079
+Mapped nondupe trans pairs        : 1297765
+Expected unique pairs at 300M sequencing:  268938669.0
 ```
 
 We consider a library to be acceptable if:
