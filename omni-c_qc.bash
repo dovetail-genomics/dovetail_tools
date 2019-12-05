@@ -32,7 +32,7 @@ r1=`samtools view -c -q $qualthresh -f 0x40 -F 2304 $out`
 r2=`samtools view -c -q $qualthresh -f 0x80 -F 2304 $out`
 
 mapped_pairs=`samtools view -q $qualthresh -f 0x40 -F 2316 $out | eval $mate_filter_cmd | wc -l`
-pcr_dupe_pairs=`samtools view -q $qualthresh -u -f 0x40 -F 2316 $out | samtools view -c -f 0x400 | eval $mate_filter_cmd | wc -l`
+pcr_dupe_pairs=`samtools view -q $qualthresh -u -f 0x40 -F 2316 $out | samtools view -f 0x400 | eval $mate_filter_cmd | wc -l`
 
 mapped_nondupe_pairs=`samtools view -q $qualthresh -f 0x40 -F 3340 $out | eval $mate_filter_cmd | wc -l`
 mapped_nondupe_pairs_cis=`samtools view -q $qualthresh -f 0x40 -F 3340 $out | awk '{if (sqrt($9^2) > 0) { print; }}' | eval $mate_filter_cmd | wc -l`
