@@ -14,7 +14,6 @@ bwa mem -5SP -T0 -t4 \
     $ref \
     $fq1 \
     $fq2 \
-| head -n1000 \
 | samblaster -i stdin -o stdout \
 | $SRCDIR/add_mate_MQ.py \
 | samtools view -S -h -b \
