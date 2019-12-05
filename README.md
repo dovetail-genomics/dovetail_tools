@@ -46,5 +46,5 @@ Expected unique pairs at 300M sequencing:  268938669.0
 
 We consider a library to be acceptable if:
 
-- cis pairs >1000 bp is greater than 20% of the total cis pairs.
-- Expected unique pairs at 300M sequencing is ~120 million
+- Mapped nondupe pairs cis >1000 bp is greater than 20% of the total mapped nondupe pairs.
+- Expected unique pairs at 300M sequencing is at least ~120 million
