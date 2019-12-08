@@ -26,7 +26,7 @@ preseq lc_extrap -B -P -e 2.1e9 -s 1e8 -seg_len 1000000000 -o $out.preseq $out
 ps300m=`cat $out.preseq | grep -P "^300000000.0" | awk '{print $2}'`
 
 qualthresh=40
-mate_filter_cmd="perl -ne 'm/MQ:i:(\\d+)/; if (\$1 >= \$ENV{qualthresh}) { print; }'"
+mate_filter_cmd="perl -e 'while (<STDIN>) { m/MQ:i:(\\d+)/; if (\$1 >= \$ARGV[0]) { print; }}' $qualthresh"
 
 r1=`samtools view -c -q $qualthresh -f 0x40 -F 2304 $out`
 r2=`samtools view -c -q $qualthresh -f 0x80 -F 2304 $out`
