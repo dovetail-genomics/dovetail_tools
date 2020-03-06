@@ -49,3 +49,6 @@ We consider a library to be acceptable if:
 
 - Mapped nondupe pairs cis >1000 bp is greater than 20% of the total mapped nondupe pairs.
 - Expected unique pairs at 300M sequencing is at least ~120 million
+
+# Contact Map Creation
+## This is the description of the scripts that will enable creation of contact map in hic and cool format from the BAM file generated in QC step. 
