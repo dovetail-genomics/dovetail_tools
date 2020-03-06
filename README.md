@@ -51,4 +51,5 @@ We consider a library to be acceptable if:
 - Expected unique pairs at 300M sequencing is at least ~120 million
 
 # Contact Map Creation
-## This is the description of the scripts that will enable creation of contact map in hic and cool format from the BAM file generated in QC step. 
+## Description
+This is the description of the scripts that will enable creation of contact map in hic and cool format from the BAM file generated in QC step. 
