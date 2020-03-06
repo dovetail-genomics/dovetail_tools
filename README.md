@@ -53,3 +53,23 @@ We consider a library to be acceptable if:
 # Contact Map Creation
 ## Description
 This is the description of the scripts that will enable creation of contact map in hic and cool format from the BAM file generated in QC step. 
+
+## Requirements
+
+This script depends on the following tools in addition to the tools required for the alignment QC:
+
+- [pysam](https://pysam.readthedocs.io/en/latest/)
+- [Cooler](https://cooler.readthedocs.io/en/latest/index.html)
+- [hic2cool](https://github.com/4dn-dcic/hic2cool)
+- [Juicer Tools](https://s3.amazonaws.com/hicfiles.tc4ga.com/public/juicer/)
+
+All the tools except Juicertools are available in Bioconda. You can download the JAR file for juicertools and place it in the same directory as this reposity and name it as `juicertools.jar`. 
+
+## Running
+After you generate the BAM, you can run contact map script as:
+
+```
+./contact_map.sh alignment.bam reference.fasta Sample
+```
+
+This will generate 3 files: `Sample.hic` - Hi-C contact map in .hic format, `Sample.cool` - Hi-C contact map at 1kb resolution in cool format, and `Sample.mcool` - Hi-C contact map at multiple resolutions in mcool format. 
