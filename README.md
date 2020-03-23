@@ -45,10 +45,13 @@ Mapped nondupe trans pairs        : 616001
 Expected unique pairs at 300M sequencing:  269101956.2
 ```
 
-We consider a library to be acceptable if:
-
-- Mapped nondupe pairs cis >1000 bp is greater than 20% of the total mapped nondupe pairs.
-- Expected unique pairs at 300M sequencing is at least ~120 million
+We consider a library prepared from a **mammalian** sample to be acceptable if:
+- Mapped nondupe pairs cis > 1,000 bp is greater than 20 % of the total mapped nondupe pairs.
+- Expected unique pairs at 300M sequencing is at least ~ 120 million.
+ 
+We consider a library prepared from **non-mammalian** sample to be acceptable if:
+- Mapped nondupe pairs cis < 1,000 bp is lower than 40 % of the total mapped nondupe pairs.
+- Expected unique pairs at 300M sequencing is at least ~ 120 million.
 
 # Contact Map Creation
 ## Description
