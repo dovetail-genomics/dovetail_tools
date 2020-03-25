@@ -1,7 +1,7 @@
 # Omni-C QC
 ## Description
 
-This repo hosts a shell script (`omni-c_qc.bash`), that can be used to perform quick QC on shallowly sequenced Omni-C libraries.
+This repo hosts a shell script (`omni-c_qc.bash`), that can be used to perform quick QC on shallowly sequenced Omni-C libraries. It is also appropriate for DpnII Hi-C libraries. 
 
 ## Requirements
 
