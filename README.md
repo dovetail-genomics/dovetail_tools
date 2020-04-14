@@ -64,7 +64,7 @@ This script depends on the following tools in addition to the tools required for
 - [pysam](https://pysam.readthedocs.io/en/latest/)
 - [Cooler](https://cooler.readthedocs.io/en/latest/index.html)
 - [hic2cool](https://github.com/4dn-dcic/hic2cool)
-- [Juicer Tools](https://s3.amazonaws.com/hicfiles.tc4ga.com/public/juicer/)
+- [Juicer Tools](https://github.com/aidenlab/juicer)
 
 All the tools except Juicertools are available in Bioconda. You can download the JAR file for juicertools and place it in the same directory as this reposity and name it as `juicertools.jar`. 
 
