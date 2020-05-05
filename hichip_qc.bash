@@ -6,7 +6,8 @@ peaks=$3
 prefix=$4
 
 samtools faidx ${ref}
-genome=${ref}".fai"
+cut -f1,2 ${ref}".fai" > ${prefix}".genome"
+genome=${prefix}".genome"
 
 SRCDIR=`dirname $0`
 
