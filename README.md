@@ -101,3 +101,15 @@ After you generate the BAM from Omni-C, you can run HiChIP QC script as:
 ## Output
 This will print output as follows: 
 
+```
+Total read pairs:	28786600
+Total read pairs in peaks:	505404(1.76%)
+Total read pairs in 500 bp around peaks:	2640644(9.17%)
+Total read pairs in 1000 bp around peaks:	4486930(15.59%)
+Total read pairs in 2000 bp around peaks:	7515833(26.11%)
+Total read pairs in 5000 bp around peaks:	12418085(43.14%)
+Signal to noise ratio for reads in peaks:	0.96
+Signal to noise ratio for reads in 1000 bp around peaks:	1.4
+Signal to noise ratio for reads in 2000 bp around peaks:	1.59
+Signal to noise ratio for reads in 5000 bp around peaks:	1.69
+```
