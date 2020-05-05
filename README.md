@@ -76,3 +76,28 @@ After you generate the BAM, you can run contact map script as:
 ```
 
 This will generate 3 files: `Sample.hic` - Hi-C contact map in .hic format, `Sample.cool` - Hi-C contact map at 1kb resolution in cool format, and `Sample.mcool` - Hi-C contact map at multiple resolutions in mcool format. 
+
+
+# HiChIP Data QC 
+## Description
+This is the description of the scripts that will perform QC steps in HiChIP data. This script is run after running the Omni-C QC script. 
+
+## Requirements
+
+This script depends on the following tools in addition to the tools required for the alignment QC:
+
+- [deeptools](https://deeptools.readthedocs.io/en/develop/)
+
+
+## Running
+After you generate the BAM from Omni-C, you can run HiChIP QC script as:
+
+```
+./hichip_qc.bash reference.fasta alignment.bam chipseq_peaks.bed output_prefix
+```
+
+`chipseq_peaks.bed` is a list of peaks called using ChipSeq data. We use this data from Encode data portal. 
+
+## Output
+This will print output as follows: 
+
