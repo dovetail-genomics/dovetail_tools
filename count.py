@@ -84,7 +84,7 @@ with open(args.peaks,'r') as f:
 		bp_in_loops += int(attrs[2]) - int(attrs[1])
 		number_of_loops += 1
 
-ref_length = sum(bamfile.reference_lengths)
+ref_length = sum(bamfile.lengths)
 
 bp_outside_loops = ref_length - bp_in_loops
 
