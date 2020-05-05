@@ -26,47 +26,6 @@ bedtools window -w 5000 -abam ${bam} -b ${peaks} -bed | sort -k4 > ${prefix}_pea
 
 wait
 
-
-#widen peaks file to accomodate reads around peaks
-bedtools slop -b 1000 -i ${peaks} -g ${genome} > ${prefix}_peaks_1000_wide.bed &
-bedtools slop -b 2000 -i ${peaks} -g ${genome} > ${prefix}_peaks_2000_wide.bed &
-bedtools slop -b 5000 -i ${peaks} -g ${genome} > ${prefix}_peaks_5000_wide.bed &
-
-wait
-
-#complement peaks for other regions
-bedtools complement -i ${bed} -g ${genome} > ${prefix}_peak_complement.bed &
-bedtools complement -i ${prefix}_peaks_1000_wide.bed -g ${genome} > ${prefix}_peaks_1000_wide_complement.bed &
-bedtools complement -i ${prefix}_peaks_2000_wide.bed -g ${genome} > ${prefix}_peaks_2000_wide_complement.bed &
-bedtools complement -i ${prefix}_peaks_5000_wide.bed -g ${genome} > ${prefix}_peaks_5000_wide_complement.bed &
-
-wait
-
-
-
-#compute read coverage in and outside peaks and widened regions
-
-bedtools coverage -sorted -g {genome} -a ${bed} -b ${bam} -mean > ${prefix}.peak.coverage.bedgraph &
-bedtools coverage -sorted -g ${genome} -a ${prefix}_peak_complement.bed -b ${bam} -mean > ${prefix}.other.coverage.bedgraph &
-
-wait
-
-bedtools coverage -sorted -g {genome} -a $${prefix}_peaks_1000_wide.bed-b ${bam} -mean > ${prefix}.peak.coverage.1000.bedgraph &
-bedtools coverage -sorted -g ${genome} -a {prefix}_peaks_1000_wide_complement.bed -b ${bam} -mean > ${prefix}.other.coverage.1000.bedgraph &
-wait
-
-bedtools coverage -sorted -g {genome} -a $${prefix}_peaks_2000_wide.bed-b ${bam} -mean > ${prefix}.peak.coverage.2000.bedgraph &
-bedtools coverage -sorted -g ${genome} -a {prefix}_peaks_2000_wide_complement.bed -b ${bam} -mean > ${prefix}.other.coverage.2000.bedgraph &
-wait
-
-bedtools coverage -sorted -g {genome} -a $${prefix}_peaks_5000_wide.bed-b ${bam} -mean > ${prefix}.peak.coverage.5000.bedgraph &
-bedtools coverage -sorted -g ${genome} -a {prefix}_peaks_5000_wide_complement.bed -b ${bam} -mean > ${prefix}.other.coverage.5000.bedgraph &
-wait
-
-
-
-
-
 #generate peak enrichment plot
 
 bamCoverage --bam ${bam} --outFileName  ${prefix}_coverage.bigwig --outFileFormat bigwig
