@@ -81,7 +81,7 @@ number_of_loops = 0
 with open(args.peaks,'r') as f:
 	for line in f:
 		attrs = line.strip().split('\t')
-		bp_in_loops += int(attrs[3]) - int(attrs[2])
+		bp_in_loops += int(attrs[2]) - int(attrs[1])
 		number_of_loops += 1
 
 ref_length = sum(bamfile.reference_lengths)
