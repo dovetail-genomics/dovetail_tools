@@ -86,8 +86,9 @@ This is the description of the scripts that will perform QC steps in HiChIP data
 
 This script depends on the following tools in addition to the tools required for the alignment QC:
 
+- [pysam](https://pysam.readthedocs.io/en/latest/)
+- [bedtools](https://bedtools.readthedocs.io/en/latest/index.html)
 - [deeptools](https://deeptools.readthedocs.io/en/develop/)
-
 
 ## Running
 After you generate the BAM from Omni-C, you can run HiChIP QC script as:

@@ -38,7 +38,7 @@ plotProfile -m ${prefix}_coverage.matrix.gz --perGroup  -out ${prefix}_peak_enri
 
 
 #print final stats
-python ${SRCDIR}/count.py -b1  ${prefix}_peak_intersect.bed -b2 ${prefix}_peaks_intersect_500.bed \
+${SRCDIR}/count.py -b1  ${prefix}_peak_intersect.bed -b2 ${prefix}_peaks_intersect_500.bed \
 	-b3 ${prefix}_peaks_intersect_1000.bed -b4 ${prefix}_peaks_intersect_2000.bed \
 	-b5 ${prefix}_peaks_intersect_5000.bed   -bam ${bam} -peaks ${peaks}
 
