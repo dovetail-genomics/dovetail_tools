@@ -44,7 +44,7 @@ wait
 
 plotProfile -m ${prefix}_coverage.matrix.gz --perGroup  -out ${prefix}_peak_enrichment.png
 
-python ${SRCDIR}/plot_chip_fingerprint.py -table ${prefix}_counts.tab/counts.tab -output ${prefix}_chip_fingerprint_plot.png 
+python ${SRCDIR}/plot_chip_fingerprint.py -table ${prefix}_counts.tab -output ${prefix}_chip_fingerprint_plot.png 
 
 
 #print final stats
