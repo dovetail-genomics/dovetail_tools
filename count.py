@@ -4,55 +4,59 @@ import pysam
 parser = argparse.ArgumentParser()
 
 def get_read_count(bedfile):
-	count = 0
-	last_read = ''
-	with open(bedfile,'r') as f:
-		for line in f:
-			attrs = line.split()
-			read = attrs[4].split('/')[0]
-			if read != last_read:
-				count += 1
-			last_read = read
-	return count
+    count = 0
+    last_read = ''
+    with open(bedfile,'r') as f:
+        for line in f:
+            attrs = line.split()
+            read = attrs[4].split('/')[0]
+            if read != last_read:
+                count += 1
+            last_read = read
+    return count
 
 # def get_snr(coverage_in, coverage_out):
-# 	coverage_in_peaks = 0
-# 	linecount = 0
+#   coverage_in_peaks = 0
+#   linecount = 0
 
-# 	with open(coverage_in,'r') as f:
-# 		for line in f:
-# 			attrs = line.split()
-# 			coverage_in_peaks += float(attrs[-1])
-# 			linecount += 1
+#   with open(coverage_in,'r') as f:
+#       for line in f:
+#           attrs = line.split()
+#           coverage_in_peaks += float(attrs[-1])
+#           linecount += 1
 
-# 	avg_coverage_in_peaks = coverage_in_peaks/linecount
-# 	avg_coverage_in_peaks_r = float(str(coverage_in_peaks/linecount)[:5])
+#   avg_coverage_in_peaks = coverage_in_peaks/linecount
+#   avg_coverage_in_peaks_r = float(str(coverage_in_peaks/linecount)[:5])
 
-# 	coverage_outside_peaks = 0
-# 	linecount = 0
+#   coverage_outside_peaks = 0
+#   linecount = 0
 
-# 	with open(coverage_out,'r') as f:
-# 		for line in f:
-# 			attrs = line.split()
-# 			coverage_outside_peaks += float(attrs[-1])
-# 			linecount += 1
+#   with open(coverage_out,'r') as f:
+#       for line in f:
+#           attrs = line.split()
+#           coverage_outside_peaks += float(attrs[-1])
+#           linecount += 1
 
 
-# 	avg_coverage_outside_peaks = coverage_outside_peaks/linecount
-# 	avg_coverage_outside_peaks_r = float(str(coverage_outside_peaks/linecount)[:5])
+#   avg_coverage_outside_peaks = coverage_outside_peaks/linecount
+#   avg_coverage_outside_peaks_r = float(str(coverage_outside_peaks/linecount)[:5])
 
-# 	snr_ratio = round(avg_coverage_in_peaks/avg_coverage_outside_peaks,2)
+#   snr_ratio = round(avg_coverage_in_peaks/avg_coverage_outside_peaks,2)
 
-# 	return snr_ratio
+#   return snr_ratio
 
 
 def get_snr(in_peaks, paired_reads, bp_in_loops , ref_length, number_of_loops, padding):
-	loop_in_length = 2*padding*number_of_loops + bp_in_loops
-	outside_loop_length = ref_length - loop_in_length
-	coverage_in_loop = 2*150*in_peaks/loop_in_length
-	coverage_outside_loop = 2*150*(paired_reads - in_peaks)/outside_loop_length
-	snr_ratio = round(coverage_in_loop/coverage_outside_loop,2)
-	return snr_ratio
+    loop_in_length = 2*padding*number_of_loops + bp_in_loops
+    #print(f"Loop in length = {loop_in_length}")
+    outside_loop_length = ref_length - loop_in_length
+    #print(f"outside loop length = {outside_loop_length}")
+    coverage_in_loop = 2*150*in_peaks/loop_in_length
+    #print(f"Coverage in Loops = {coverage_in_loop}")
+    coverage_outside_loop = 2*150*(paired_reads - in_peaks)/outside_loop_length
+    #print(f"Coverage outside loops = {coverage_outside_loop}")
+    snr_ratio = round(coverage_in_loop/coverage_outside_loop,2)
+    return snr_ratio
 
 parser.add_argument('-b1',help="bedfile1")
 parser.add_argument('-b2',help="bedfile2")
@@ -79,18 +83,17 @@ bp_in_loops = 0
 number_of_loops = 0
 
 with open(args.peaks,'r') as f:
-	for line in f:
-		attrs = line.strip().split('\t')
-		bp_in_loops += int(attrs[2]) - int(attrs[1])
-		number_of_loops += 1
+    for line in f:
+        attrs = line.strip().split('\t')
+        bp_in_loops += int(attrs[2]) - int(attrs[1])
+        number_of_loops += 1
 
 ref_length = sum(bamfile.lengths)
 
-bp_outside_loops = ref_length - bp_in_loops
 
 for r in bamfile.fetch(until_eof=True):
-	 if r.is_paired:
-	 	paired_reads += 1
+     if r.is_paired:
+        paired_reads += 1
 
 total_valid_pairs = paired_reads//2
 in_peaks_p = round(in_peaks *100.0/total_valid_pairs,2)

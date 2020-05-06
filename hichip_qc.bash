@@ -18,6 +18,9 @@ bedtools sort -g ${genome} -i ${peaks} > ${prefix}_reordered_peaks.bed
 
 bed=${prefix}"_reordered_peaks.bed"
 
+bed_chr20=${prefix}"_chr20_reordered_peaks.bed"
+grep -w 'chr20' ${bed} > ${bed_chr20}
+
 #compute how many reads intersect with peaks
 bedtools intersect -a ${bam} -b ${bed} -bed | sort -k4 > ${prefix}_peak_intersect.bed &
 bedtools window -w 500 -abam ${bam} -b ${peaks} -bed | sort -k4 > ${prefix}_peaks_intersect_500.bed &
@@ -29,12 +32,19 @@ wait
 
 #generate peak enrichment plot
 
-bamCoverage --bam ${bam} --outFileName  ${prefix}_coverage.bigwig --outFileFormat bigwig
+bamCoverage --bam ${bam} --outFileName  ${prefix}_coverage.bigwig --outFileFormat bigwig 
+
 computeMatrix reference-point --scoreFileName ${prefix}_coverage.bigwig --referencePoint \
  	center --beforeRegionStartLength 10000 --afterRegionStartLength 10000 \
- 	--outFileName ${prefix}_coverage.matrix.gz
+ 	--outFileName ${prefix}_coverage.matrix.gz  --regionsFileName ${bed_chr20} &
+
+plotFingerprint -b ${bam} --region chr20 --plotFile ${prefix}_chip_fingerprint_plot.png --outRawCounts ${prefix}_counts.tab &
+
+wait 
 
 plotProfile -m ${prefix}_coverage.matrix.gz --perGroup  -out ${prefix}_peak_enrichment.png
+
+python ${SRCDIR}/plot.py -table ${prefix}_counts.tab/counts.tab -output ${prefix}_chip_fingerprint_plot.png 
 
 
 #print final stats
