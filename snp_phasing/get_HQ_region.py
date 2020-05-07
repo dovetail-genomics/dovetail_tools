@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import sys,argparse,pysam
+import sys,argparse,pysam,os
 
 # Create a bed file of the high confidence regions of the genome given a 
 # particular alignment bam.  Here that is defined as all the regions where
@@ -19,16 +19,16 @@ def main(argv):
     args = parseArgs(argv)
     
     bam = pysam.AlignmentFile(args.bam)
-    with open(args.bedout) as bout:
-        for r in bam:
-            if ((r.is_read1) and
-                (not r.is_unmapped) and
-                (not r.mate_is_unmapped) and
-                (not r.is_supplementary) and
-                (not r.is_secondary) and
-                (r.mapping_quality <= args.qthresh)):
-                    outstr = f"{r.reference_name}\t{r.reference_start}\t{r.reference_end}\t{r.mapping_quality}"
-                    print(outstr+"\n")    
+    ofile = open(f"{args.bedroot}.bed",'w')
+    for r in bam:
+        if ((r.is_read1) and
+            (not r.is_unmapped) and
+            (not r.mate_is_unmapped) and
+            (not r.is_supplementary) and
+            (not r.is_secondary) and
+            (r.mapping_quality <= args.qthresh)):
+                outstr = f"{r.reference_name}\t{r.reference_start}\t{r.reference_end}\t{r.mapping_quality}"
+                ofile.write(outstr+'\n')    
                     
     os.system(f"bedtools merge -i {args.bedroot}.bed > {args.bedroot}_merged.bed")
     os.system(f"bedtools complement -i {args.bedroot}_merged.bed -g {args.contigsizes} > {args.bedroot}_highconf.bed")  
