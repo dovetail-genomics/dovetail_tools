@@ -17,7 +17,8 @@ cut -f 1,2 ${ref}.fai > ${prefix}.contig_size.txt
 java -jar ${SRCDIR}/GenomeAnalysisTK.jar  -T UnifiedGenotyper -R ${ref} -drf BadMate \
        -I ${bam} -o ${prefix}_variants.vcf -L ${confident_regions}
 
-
+bgzip -c ${prefix}_variants.vcf > ${prefix}_variants.vcf.gz 
+tabix ${prefix}_variants.vcf.gz
 #Now filter these SNPs using custon scripts
 
 bgzip -c  ${prefix}_variants.vcf > ${prefix}_variants.vcf.gz 
