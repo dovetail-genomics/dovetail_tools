@@ -14,7 +14,7 @@ cut -f 1,2 ${ref}.fai > ${prefix}.contig_size.txt
 
 #First call SNPs with UnifiedGenotyper
 
-java -jar GenomeAnalysisTK.jar  -T UnifiedGenotyper -R ${ref} -drf BadMate \
+java -jar ${SRCDIR}/GenomeAnalysisTK.jar  -T UnifiedGenotyper -R ${ref} -drf BadMate \
        -I ${bam} -o ${prefix}_variants.vcf -L ${confident_regions}
 
 
