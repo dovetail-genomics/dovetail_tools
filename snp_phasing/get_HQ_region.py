@@ -26,13 +26,10 @@ def main(argv):
             (not r.mate_is_unmapped) and
             (not r.is_supplementary) and
             (not r.is_secondary) and
-            (r.mapping_quality <= args.qthresh)):
+            (r.mapping_quality < args.qthresh)):
                 outstr = f"{r.reference_name}\t{r.reference_start}\t{r.reference_end}\t{r.mapping_quality}"
                 ofile.write(outstr+'\n')    
                     
-    os.system(f"bedtools merge -i {args.bedroot}.bed > {args.bedroot}_merged.bed")
-    os.system(f"bedtools complement -i {args.bedroot}_merged.bed -g {args.contigsizes} > {args.bedroot}_highconf.bed")  
-    
     
 if __name__ == "__main__":
     main(sys.argv)
