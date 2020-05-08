@@ -27,7 +27,7 @@ tabix ${prefix}_variants.vcf.gz
 python ${SRCDIR}/qd_fs_filter.py -vcfin ${prefix}_variants.vcf.gz -qdthresh 2 -fsthresh 60 -vcfout ${prefix}_variants_qd2_fs60.vcf
 
 
-python ${SRCDIR}/get_HQ_region.py -bam ${bam} -qthresh 40   -bedroot ${prefix}  -contigsizes ${prefix}.contig_size.txt
+python ${SRCDIR}/get_HQ_region.py -bam ${bam} -qthresh 0   -bedroot ${prefix}  -contigsizes ${prefix}.contig_size.txt
 
 bedtools merge -i ${prefix}.bed > ${prefix}_merged.bed
 bedtools complement -i ${prefix}_merged.bed -g ${prefix}.contig_size.txt  > ${prefix}_highconf.bed

@@ -26,7 +26,7 @@ def main(argv):
             (not r.mate_is_unmapped) and
             (not r.is_supplementary) and
             (not r.is_secondary) and
-            (r.mapping_quality < args.qthresh)):
+            (r.mapping_quality <= args.qthresh)):
                 outstr = f"{r.reference_name}\t{r.reference_start}\t{r.reference_end}\t{r.mapping_quality}"
                 ofile.write(outstr+'\n')    
                     
