@@ -256,4 +256,3 @@ dependencies:
     - mgzip
     - PyGithub
     - opencv-contrib-python 
-prefix: /home/jay/miniconda3_latest
