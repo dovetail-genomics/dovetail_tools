@@ -12,6 +12,8 @@ This script depends on the following tools in addition to the tools required for
 - [matplotlib](https://matplotlib.org/)
 - [pandas](https://pandas.pydata.org/pandas-docs/stable/dsintro.html)
 
+If you have already created conda environment using `create.sh` script in the `conda` folder, you have all these dependencies!
+
 ## Running
 After you generate the BAM from Omni-C, you can run HiChIP QC script as:
 
