@@ -9,6 +9,8 @@ This script depends on the following tools in addition to the tools required for
 - [pysam](https://pysam.readthedocs.io/en/latest/)
 - [bedtools](https://bedtools.readthedocs.io/en/latest/index.html)
 - [deeptools](https://deeptools.readthedocs.io/en/develop/)
+- [matplotlib](https://matplotlib.org/)
+- [pandas](https://pandas.pydata.org/pandas-docs/stable/dsintro.html)
 
 ## Running
 After you generate the BAM from Omni-C, you can run HiChIP QC script as:
@@ -35,3 +37,7 @@ Along with these statistics, the QC pipeline will output two plots. The first on
 
 
 ![ChIP Enrichment Plot ](plot_enrichment.png)
+
+It will also output ChIP fingerprint plot as follows:
+
+![ChIP Fingerprint Plot ](plot_fingerprint.png)
