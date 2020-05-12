@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import matplotlib.pyplot as plt
 import argparse
 import numpy as np
@@ -37,6 +39,7 @@ for i in range(1, len(sorted_pairs_list)):
 
 plt.plot(y,x)
 plt.grid()
+plt.title("ChIP fingerprint")
 plt.xlabel("Fraction of bins")
 plt.ylabel("Coverage wrt highest coverage bin")
 plt.savefig(args.output,dpi=300)
