@@ -12,9 +12,17 @@ This script depends on the following tools:
 - [samblaster](https://github.com/GregoryFaust/samblaster)
 - [preseq](http://smithlabresearch.org/software/preseq/)
 
-All of these tools are installable via [BioConda](https://bioconda.github.io).
+All of these tools are installable via [BioConda](https://bioconda.github.io). 
 
 Install them however is most convinent for you. They are expected to be in your path.
+
+If you want a prebuilt conda environment with all the dependencies required to run scripts in this repository, you can run following from the `conda` folder in this repo.
+
+```
+./create.sh
+```
+
+This will create and activte an environment named `dovetail`. Once you are in this environment, you can run all the scripts here without installing any more dependencies!
 
 ## Running
 Given paired FASTQ's and a reference FASTA, run:
