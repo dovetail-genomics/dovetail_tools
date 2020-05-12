@@ -32,17 +32,11 @@ wait
 
 #generate peak enrichment plot
 
-bamCoverage --bam ${bam} --outFileName  ${prefix}_coverage.bigwig --outFileFormat bigwig 
-
-computeMatrix reference-point --scoreFileName ${prefix}_coverage.bigwig --referencePoint \
- 	center --beforeRegionStartLength 10000 --afterRegionStartLength 10000 \
- 	--outFileName ${prefix}_coverage.matrix.gz  --regionsFileName ${bed_chr20} &
+bamCoverage --bam ${bam} --outFileName  ${prefix}_coverage.bigwig --outFileFormat bigwig & 
 
 plotFingerprint -b ${bam} --region chr20 --plotFile ${prefix}_chip_fingerprint_plot.png --outRawCounts ${prefix}_counts.tab &
 
 wait 
-
-plotProfile -m ${prefix}_coverage.matrix.gz --perGroup  -out ${prefix}_peak_enrichment.png
 
 python ${SRCDIR}/plot_chip_fingerprint.py -table ${prefix}_counts.tab -output ${prefix}_chip_fingerprint_plot.png 
 
