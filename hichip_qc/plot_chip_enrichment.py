@@ -9,7 +9,7 @@ import subprocess
 parser = argparse.ArgumentParser()
 parser.add_argument("-bam", help="Input BAM file")
 parser.add_argument("-peaks", help="ChiSeq peaks in encode format")
-parser.add_argument("-output_prefix", help="Output prefix")
+parser.add_argument("-output", help="Output file")
 
 args = parser.parse_args()
 
@@ -63,4 +63,4 @@ plt.plot(y_smooth_norm)
 plt.title("Coverage around ChIP peaks")
 plt.xlabel("Distance from the peak center")
 plt.ylabel("Fold coverage change  based on average coverage")
-plt.savefig(args.output_prefix+".png", dpi=300)
+plt.savefig(args.output, dpi=300)
