@@ -7,4 +7,4 @@ out=$4
 
 SRCDIR=`dirname $0`
 
-java -jar ${SRCDIR}/GenomeAnalysisTK.jar  -T GenotypeConcordance  --eval ${comp} --comp ${truth}  -R ${ref}  -o ${out}
+java -jar ${SRCDIR}/GenomeAnalysisTK.jar  -T GenotypeConcordance  -eval ${comp} -truth ${truth} -S ${out}
