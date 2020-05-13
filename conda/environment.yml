@@ -233,6 +233,7 @@ dependencies:
   - scikit-image
   - seqkit
   - deeptools
+  - gatk4
   - pip:
     - boto3
     - argh==0.26.2
