@@ -38,7 +38,3 @@ python ${SRCDIR}/get_HQ_region.py -bam ${bam} -qthresh 0   -bedroot ${prefix}  -
 bedtools merge -i ${prefix}.bed > ${prefix}_merged.bed
 bedtools complement -i ${prefix}_merged.bed -g ${prefix}.contig_size.txt  > ${prefix}_highconf.bed
 
-#bedtools intersect -a ${prefix}_variants_qd2_fs60.vcf.gz  -b ${prefix}_highconf.bed -header > ${prefix}_variants_qd2_fs60_highconf.vcf
-
-#bgzip -c ${prefix}_variants_qd2_fs60_highconf.vcf > ${prefix}_variants_qd2_fs60_highconf.vcf.gz 
-#tabix ${prefix}_variants_qd2_fs60_highconf.vcf.gz
