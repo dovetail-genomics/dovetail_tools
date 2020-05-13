@@ -6,6 +6,15 @@ import pandas as pd
 import argparse
 import subprocess
 
+'''
+chr1    826678  826954  Peak_12342      156     .       6.23321 12.01192        9.02289 152
+chr1    958283  959249  Peak_589        393     .       10.52320        28.16420        23.14729        442
+chr1    1115852 1116138 Peak_9793       186     .       6.88934 14.01684        10.81947        155
+chr1    1157596 1158571 Peak_7928       209     .       6.83383 15.68351        12.29603        179
+chr1    1230531 1231969 Peak_3912       272     .       7.32373 19.95536        16.04756        988
+chr1    1324817 1326133 Peak_3564       280     .       8.85772 20.48661        16.51214        554
+'''
+
 parser = argparse.ArgumentParser()
 parser.add_argument("-bam", help="Input BAM file")
 parser.add_argument("-peaks", help="ChiSeq peaks in encode format")
@@ -29,25 +38,24 @@ coverage = dict()
 for i in range(-10000, 10001):
     coverage[i] = 0
 
-for index, row in peak_data_filtered.iterrows():
+count = 0
+for num, row in peak_data_filtered.iterrows():
     chrom = row["chromosome"]
     center = row["start"] + row["offset"]
     start = center - 10000
     end = center + 10000
     x = []
     y = []
-    index = -10000
+    count += 1
     proc = subprocess.Popen(['samtools','mpileup', '-A', args.bam, '-r', f"{chrom}:{start}-{end}"],stdout=subprocess.PIPE)
     while True:
         line = proc.stdout.readline().decode('ascii')
         if not line: 
             break
         attrs = line.split('\t')
-        coverage[index] += int(attrs[3])
-        index += 1
-    count += 1
-    if count ==100:
-        break
+        pos = int(attrs[1])
+        coverage[pos - center] += int(attrs[3])
+
 x = list(coverage.keys())
 y = list(coverage.values())
 N = 200
