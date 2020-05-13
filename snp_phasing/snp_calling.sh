@@ -2,8 +2,7 @@
 
 ref=$1
 bam=$2
-confident_regions=$3
-prefix=$4
+prefix=$3
 
 SRCDIR=`dirname $0`
 
@@ -23,15 +22,9 @@ grep -E '^#|0/0|1/1|0/1|1/0|0/2|2/0'  ${prefix}_raw_variants.vcf > ${prefix}_var
 #java -jar ${SRCDIR}/GenomeAnalysisTK.jar  -T UnifiedGenotyper -R ${ref} -drf BadMate \
 #       -I ${bam} -o ${prefix}_variants.vcf -L ${confident_regions}
 
-bgzip -c ${prefix}_variants.vcf > ${prefix}_variants.vcf.gz 
-tabix ${prefix}_variants.vcf.gz
-#Now filter these SNPs using custon scripts
 
 bgzip -c  ${prefix}_variants.vcf > ${prefix}_variants.vcf.gz 
 tabix ${prefix}_variants.vcf.gz
-
-python ${SRCDIR}/qd_fs_filter.py -vcfin ${prefix}_variants.vcf.gz -qdthresh 2 -fsthresh 60 -vcfout ${prefix}_variants_qd2_fs60.vcf
-
 
 python ${SRCDIR}/get_HQ_region.py -bam ${bam} -qthresh 0   -bedroot ${prefix}  -contigsizes ${prefix}.contig_size.txt
 
