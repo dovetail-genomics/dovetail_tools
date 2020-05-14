@@ -70,3 +70,9 @@ We can further phase these variants with HapCUT2 as follows:
 ```
 ./phasing_workflow.sh NA12878_variants.vcf.gz NA12878_OmniC.bam NA12878
 ```
+
+The output will be stored in a file called `NA12878_hapcut_output.phased.VCF.gz`. The accuracy of phasing can be estimated if you have the truthset. Here we use the same GIAB truthset for evaluation:
+
+```
+./phasing_eval.sh NA12878_hapcut_output.phased.VCF.gz NA12878_GIAB.vcf.gz NA12878
+```
