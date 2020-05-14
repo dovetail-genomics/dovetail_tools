@@ -34,7 +34,7 @@ To phase variants, we use HapCUT2 phasing program. The wrapper script to run for
 
 Note that `<vcf>` file here should NOT be gzipped as HapCUT2 requires unzipped VCF file. This script will first filter input VCF to contain just signel or biallelic variants as HapCUT2 operataes only on these types of variants. The output of the script is `<output_prefix>_hapcut_output.phased.VCF.gz` file that contains phased variants. 
 
-## Evaluating phasing for NA12878
+## Evaluating SNPs and phasing for NA12878
 
 If you want test data to run this pipeline, you can download the pre-aligned BAM (and its index) file from here: 
 
