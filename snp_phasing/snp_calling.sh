@@ -1,10 +1,18 @@
 #!/bin/bash
 
+
+if [  $# -le 2 ]
+then
+	echo "Too few arguments. Please provide all the required arguments."
+	echo "Usage: ./snp_calling.sh <reference_fasta> <alignment_bam> <output_prefix>"
+	exit 1
+fi
+
+
 ref=$1
 bam=$2
 prefix=$3
 
-SRCDIR=`dirname $0`
 
 #Generate contig size file
 samtools faidx ${ref}

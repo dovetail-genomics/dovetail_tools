@@ -1,5 +1,12 @@
 #!/bin/bash
 
+if [  $# -le 2 ]
+then
+        echo "Too few arguments. Please provide all the required arguments."
+        echo "Usage: ./phasing_workflow.sh <variants_vcf> <alignment_bam> <output_prefix>"
+        exit 1
+fi
+
 vcf=$1
 bam=$2
 prefix=$3
