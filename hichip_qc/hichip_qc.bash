@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+
+if [  $# -le 3 ]
+then
+        echo "Too few arguments. Please provide all the required arguments."
+        echo "Usage: ./hichip_qc.bash <reference_fasta> <alignment_bam> <chipseq_peaks>  <output_prefix>"
+        exit 1
+fi
+
 ref=$1
 bam=$2
 peaks=$3
