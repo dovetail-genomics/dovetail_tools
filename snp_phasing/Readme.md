@@ -34,12 +34,39 @@ To phase variants, we use HapCUT2 phasing program. The wrapper script to run for
 
 Note that `<vcf>` file here should NOT be gzipped as HapCUT2 requires unzipped VCF file. This script will first filter input VCF to contain just signel or biallelic variants as HapCUT2 operataes only on these types of variants. The output of the script is `<output_prefix>_hapcut_output.phased.VCF.gz` file that contains phased variants. 
 
-## Evaluating phasing
+## Evaluating phasing for NA12878
 
-If you want to evaluate phasing against ground truth/trio phased variant calls, you can use `phasing_eval.sh` script. It uses WhatsHap program to generate summary statistics. You can run it as
+If you want test data to run this pipeline, you can download the pre-aligned BAM (and its index) file from here: 
+
+https://dovetail-public-data.s3-us-west-2.amazonaws.com/NA12878_data/NA12878_OmniC.bam
+
+
+https://dovetail-public-data.s3-us-west-2.amazonaws.com/NA12878_data/NA12878_OmniC.bam.bai
+
+After you download it, first run the SNP calling as follows as follows:
+```
+./snp_calling.sh hg38.fasta NA12878_OmniC.bam NA12878
+```
+
+This should produce `NA12878_variants.vcf`, `NA12878_variants.vcf.gz`, and `NA12878_variants.vcf.gz.tbi` files. After this, you can evaluate variants against the know truth set. We use the variants from GIAB consortium that can be found here: 
+
+https://dovetail-public-data.s3-us-west-2.amazonaws.com/NA12878_data/NA12878_GIAB.vcf.gz
+
+https://dovetail-public-data.s3-us-west-2.amazonaws.com/NA12878_data/NA12878_GIAB.vcf.gz.tbi
+
+We also use a set of high-confident regions for evaluation. The bed file for evaluation can be found here:
+
+https://dovetail-public-data.s3-us-west-2.amazonaws.com/NA12878_data/NA12878_highconf.bed
+
+
+Once you download all the files, you can run the evaluation script as follows:
 
 ```
-./phasing_eval <hapcut_phasing_vcf> <truth_phasing_vcf> <output_prefix>
+./snp_eval.sh NA12878_GIAB.vcf.gz NA12878_variants.vcf.gz NA12878_highconf.bed NA12878_variants_eval.txt
 ```
 
-Note that vcf files here should be gzipped and indexed. 
+We can further phase these variants with HapCUT2 as follows:
+
+```
+./phasing_workflow.sh NA12878_variants.vcf.gz NA12878_OmniC.bam NA12878
+```
