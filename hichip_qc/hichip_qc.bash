@@ -21,7 +21,6 @@ SRCDIR=`dirname $0`
 
 #rerorder peaks file based on order of chromosomes in reference
 
-echo "bedtools sort -g ${genome} -i ${peaks} > ${prefix}_reordered_peaks.bed"
 bedtools sort -g ${genome} -i ${peaks} > ${prefix}_reordered_peaks.bed
 
 bed=${prefix}"_reordered_peaks.bed"
