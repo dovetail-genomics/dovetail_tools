@@ -22,7 +22,11 @@ cut -f 1,2 ${ref}.fai > ${prefix}.contig_size.txt
 
 #Call SNPs with HaplotypeCaller
 
-gatk HaplotypeCaller -A RMSMappingQuality -R ${ref} -I ${bam} -O ${prefix}_variants.vcf -ERC GVCF --native-pair-hmm-threads 1 --max-alternate-alleles 3 --QUIET 
+gatk HaplotypeCaller -A RMSMappingQuality -R ${ref} -I ${bam}  -O ${prefix}_variants.vcf \
+	--max-alternate-alleles 3 --contamination-fraction-to-filter 0.0   --minimum-mapping-quality 60 --heterozygosity 0.001 \
+	--indel-heterozygosity 1.25E-4 -standard-min-confidence-threshold-for-calling 30.0 --max-genotype-count 1024 --sample-ploidy 2 \
+	--num-reference-samples-if-no-call 0 --native-pair-hmm-threads 32
+
 
 bgzip -c  ${prefix}_variants.vcf > ${prefix}_variants.vcf.gz 
 tabix ${prefix}_variants.vcf.gz
