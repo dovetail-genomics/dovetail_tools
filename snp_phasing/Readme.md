@@ -23,6 +23,13 @@ We use `HaplotypeCaller` program from GATK to call SNVs.
 ```
 This run will produce `vcf`, `vcf.gz`, and `vcf.gz.tbi` file in the end. 
 
+If you want to filter this vcf based on `QD` and `FS` filters from the VCF INFO field, you can use `qd_fs_filter.py` script as follows:
+
+```
+./qd_fs_filter.py -qdthresh 2 -fsthresh 60 -vcfin in.vcf.gz -vcfout out.vcf
+```
+This would generate `out.vcf.gz` and `out.vcf.gz.tbi` files that are fitlered for given qd and fs thresholds. 
+
 ## Phasing variants with Omni-C data
 
 To phase variants, we use HapCUT2 phasing program. The wrapper script to run for phasing is `phasing_workflow.sh`. It can be run as
