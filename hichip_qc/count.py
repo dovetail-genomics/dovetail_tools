@@ -43,6 +43,11 @@ if __name__ == "__main__":
     in_2000_peaks = format(get_read_count(args.b4),",d")
     in_5000_peaks = format(get_read_count(args.b5), ",d")
 
+    in_500_peaks_fmt = format(in_500_peaks,",d")
+    in_1000_peaks_fmt = format(in_1000_peaks,",d")
+    in_2000_peaks_fmt = format(in_2000_peaks,",d")
+    in_5000_peaks_fmt = format(in_5000_peaks, ",d")
+
     bamfile = pysam.AlignmentFile(args.bam,'rb')
 
     paired_reads = 0
