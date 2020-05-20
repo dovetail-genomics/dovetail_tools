@@ -38,10 +38,10 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     in_peaks = get_read_count(args.b1)
-    in_500_peaks = format(get_read_count(args.b2),",d")
-    in_1000_peaks = format(get_read_count(args.b3),",d")
-    in_2000_peaks = format(get_read_count(args.b4),",d")
-    in_5000_peaks = format(get_read_count(args.b5), ",d")
+    in_500_peaks = get_read_count(args.b2)
+    in_1000_peaks = get_read_count(args.b3)
+    in_2000_peaks = get_read_count(args.b4)
+    in_5000_peaks = get_read_count(args.b5)
 
     in_500_peaks_fmt = format(in_500_peaks,",d")
     in_1000_peaks_fmt = format(in_1000_peaks,",d")
@@ -83,10 +83,9 @@ if __name__ == "__main__":
 
     
     print(f"Total ChIP peaks:\t{number_of_loops}")
-    print(f"Mean ChIP peak size:\t{mean_peak_size}")
-    print(f"Median ChIP peak size:\t{median_peak_size}")
-    print(f"Total read pairs in peaks:\t{in_peaks}({in_peaks_p}%)")
-    print(f"Total read pairs in 500 bp around peaks:\t{in_500_peaks}({in_500_peaks_p}%)")
-    print(f"Total read pairs in 1000 bp around peaks:\t{in_1000_peaks}({in_1000_peaks_p}%)")
-    print(f"Total read pairs in 2000 bp around peaks:\t{in_2000_peaks}({in_2000_peaks_p}%)")
-    print(f"Total read pairs in 5000 bp around peaks:\t{in_5000_peaks}({in_5000_peaks_p}%)")
+    print(f"Mean ChIP peak size:\t{mean_peak_size} bp")
+    print(f"Median ChIP peak size:\t{median_peak_size} bp")
+    print(f"Total read pairs in 500 bp around peaks:\t{in_500_peak_fmt}({in_500_peaks_p}%)")
+    print(f"Total read pairs in 1000 bp around peaks:\t{in_1000_peaks_fmt}({in_1000_peaks_p}%)")
+    print(f"Total read pairs in 2000 bp around peaks:\t{in_2000_peaks_fmt}({in_2000_peaks_p}%)")
+    print(f"Total read pairs in 5000 bp around peaks:\t{in_5000_peaks_fmt}({in_5000_peaks_p}%)")
