@@ -4,20 +4,28 @@
 if [  $# -le 3 ]
 then
         echo "Too few arguments. Please provide all the required arguments."
-        echo "Usage: ./hichip_qc.bash <reference_fasta> <alignment_bam> <chipseq_peaks>  <output_prefix>"
+        echo "Usage: ./hichip_qc.bash <reference_fasta> <read1_fastq> <reaf2_fastq>  <chipseq_peaks>  <output_prefix>"
         exit 1
 fi
 
 ref=$1
-bam=$2
-peaks=$3
-prefix=$4
+r1fq=$2
+r2fq=$3
+peaks=$4
+prefix=$5
+
+sample=`basename ${prefix}`
 
 samtools faidx ${ref}
 cut -f1,2 ${ref}".fai" > ${prefix}".genome"
 genome=${prefix}".genome"
-
 SRCDIR=`dirname $0`
+
+#first run omnic_qc
+
+bam=${prefix}".bam"
+
+${SRCDIR}/../omni-c_qc.bash ${ref} ${r1fq} ${r2fq} ${bam}  ${sample}
 
 #rerorder peaks file based on order of chromosomes in reference
 

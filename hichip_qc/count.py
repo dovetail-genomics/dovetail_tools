@@ -2,28 +2,28 @@
 
 import argparse
 import pysam
-
+import numpy as np
 
 def get_read_count(bedfile):
-	count = 0
-	last_read = ''
-	with open(bedfile,'r') as f:
-		for line in f:
-			attrs = line.split()
-			read = attrs[4].split('/')[0]
-			if read != last_read:
-				count += 1
-			last_read = read
-	return count
+    count = 0
+    last_read = ''
+    with open(bedfile,'r') as f:
+        for line in f:
+            attrs = line.split()
+            read = attrs[4].split('/')[0]
+            if read != last_read:
+                count += 1
+            last_read = read
+    return count
 
 
 def get_snr(in_peaks, paired_reads, bp_in_loops , ref_length, number_of_loops, padding):
-	loop_in_length = 2*padding*number_of_loops + bp_in_loops
-	outside_loop_length = ref_length - loop_in_length
-	coverage_in_loop = 2*150*in_peaks/loop_in_length
-	coverage_outside_loop = 2*150*(paired_reads - in_peaks)/outside_loop_length
-	snr_ratio = round(coverage_in_loop/coverage_outside_loop,2)
-	return snr_ratio
+    loop_in_length = 2*padding*number_of_loops + bp_in_loops
+    outside_loop_length = ref_length - loop_in_length
+    coverage_in_loop = 2*150*in_peaks/loop_in_length
+    coverage_outside_loop = 2*150*(paired_reads - in_peaks)/outside_loop_length
+    snr_ratio = round(coverage_in_loop/coverage_outside_loop,2)
+    return snr_ratio
 
 
 if __name__ == "__main__":
@@ -51,42 +51,37 @@ if __name__ == "__main__":
     bp_in_loops = 0
 
     number_of_loops = 0
-
+    peak_size = []
     with open(args.peaks,'r') as f:
-    	for line in f:
-    		attrs = line.strip().split('\t')
-    		bp_in_loops += int(attrs[2]) - int(attrs[1])
-    		number_of_loops += 1
+        for line in f:
+            attrs = line.strip().split('\t')
+            bp_in_loops += int(attrs[2]) - int(attrs[1])
+            peak_size.append(int(attrs[2]) - int(attrs[1]))
+            number_of_loops += 1
 
     ref_length = sum(bamfile.lengths)
 
     bp_outside_loops = ref_length - bp_in_loops
 
     for r in bamfile.fetch(until_eof=True):
-    	 if r.is_paired:
-    	 	paired_reads += 1
+         if r.is_paired:
+            paired_reads += 1
 
     total_valid_pairs = paired_reads//2
     in_peaks_p = round(in_peaks *100.0/total_valid_pairs,2)
-    in_500_peaks_p = round(in_500_peaks *100.0/total_valid_pairs,2)
-    in_1000_peaks_p = round(in_1000_peaks *100.0/total_valid_pairs,2)
-    in_2000_peaks_p = round(in_2000_peaks *100.0/total_valid_pairs,2)
-    in_5000_peaks_p = round(in_5000_peaks *100.0/total_valid_pairs,2)
+    in_500_peaks_p = format(round(in_500_peaks *100.0/total_valid_pairs,2),",d")
+    in_1000_peaks_p = format(round(in_1000_peaks *100.0/total_valid_pairs,2), ",d")
+    in_2000_peaks_p = format(round(in_2000_peaks *100.0/total_valid_pairs,2), ",d")
+    in_5000_peaks_p = format(round(in_5000_peaks *100.0/total_valid_pairs,2), ",d")
+    median_peak_size = format(int(np.median(peak_size)),",d")
+    mean_peak_size = format(int(np.mean(peak_size)), ",d")
 
-
-
-    snr_ratio = get_snr(in_peaks, paired_reads, bp_in_loops,ref_length, number_of_loops, 0)
-    snr_ratio_1000 = get_snr(in_1000_peaks, paired_reads, bp_in_loops, ref_length, number_of_loops, 1000)
-    snr_ratio_2000 = get_snr(in_2000_peaks, paired_reads, bp_in_loops, ref_length, number_of_loops, 2000)
-    snr_ratio_5000 = get_snr(in_5000_peaks, paired_reads, bp_in_loops, ref_length, number_of_loops, 5000)
-
-    print(f"Total read pairs:\t{total_valid_pairs}")
+    
+    print(f"Total ChIP peaks:\t{number_of_loops}")
+    print(f"Mean ChIP peak size:\t{mean_peak_size}")
+    print(f"Median ChIP peak size:\t{median_peak_size}")
     print(f"Total read pairs in peaks:\t{in_peaks}({in_peaks_p}%)")
     print(f"Total read pairs in 500 bp around peaks:\t{in_500_peaks}({in_500_peaks_p}%)")
     print(f"Total read pairs in 1000 bp around peaks:\t{in_1000_peaks}({in_1000_peaks_p}%)")
     print(f"Total read pairs in 2000 bp around peaks:\t{in_2000_peaks}({in_2000_peaks_p}%)")
     print(f"Total read pairs in 5000 bp around peaks:\t{in_5000_peaks}({in_5000_peaks_p}%)")
-    #print(f"Signal to noise ratio for reads in peaks:\t{snr_ratio}")
-    #print(f"Signal to noise ratio for reads in 1000 bp around peaks:\t{snr_ratio_1000}")
-    #print(f"Signal to noise ratio for reads in 2000 bp around peaks:\t{snr_ratio_2000}")
-    #print(f"Signal to noise ratio for reads in 5000 bp around peaks:\t{snr_ratio_5000}")
