@@ -38,10 +38,10 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     in_peaks = get_read_count(args.b1)
-    in_500_peaks = get_read_count(args.b2)
-    in_1000_peaks = get_read_count(args.b3)
-    in_2000_peaks = get_read_count(args.b4)
-    in_5000_peaks = get_read_count(args.b5)
+    in_500_peaks = format(get_read_count(args.b2),",d")
+    in_1000_peaks = format(get_read_count(args.b3),",d")
+    in_2000_peaks = format(get_read_count(args.b4),",d")
+    in_5000_peaks = format(get_read_count(args.b5), ",d")
 
     bamfile = pysam.AlignmentFile(args.bam,'rb')
 
@@ -69,10 +69,10 @@ if __name__ == "__main__":
 
     total_valid_pairs = paired_reads//2
     in_peaks_p = round(in_peaks *100.0/total_valid_pairs,2)
-    in_500_peaks_p = format(round(in_500_peaks *100.0/total_valid_pairs,2),",d")
-    in_1000_peaks_p = format(round(in_1000_peaks *100.0/total_valid_pairs,2), ",d")
-    in_2000_peaks_p = format(round(in_2000_peaks *100.0/total_valid_pairs,2), ",d")
-    in_5000_peaks_p = format(round(in_5000_peaks *100.0/total_valid_pairs,2), ",d")
+    in_500_peaks_p = round(in_500_peaks *100.0/total_valid_pairs,2)
+    in_1000_peaks_p = round(in_1000_peaks *100.0/total_valid_pairs,2)
+    in_2000_peaks_p = round(in_2000_peaks *100.0/total_valid_pairs,2)
+    in_5000_peaks_p = round(in_5000_peaks *100.0/total_valid_pairs,2)
     median_peak_size = format(int(np.median(peak_size)),",d")
     mean_peak_size = format(int(np.mean(peak_size)), ",d")
 
