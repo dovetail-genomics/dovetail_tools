@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 
-if [  $# -le 6 ]
+if [  $# -le 5 ]
 then
         echo "Too few arguments. Please provide all the required arguments."
         echo "Usage: ./hichip_qc.bash <reference_fasta> <read1_fastq> <reaf2_fastq>  <chipseq_peaks>  <output_prefix> <num_cores>"
