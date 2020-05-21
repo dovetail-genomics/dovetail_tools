@@ -18,7 +18,11 @@ If you have already created conda environment using `create.sh` script in the `c
 
 
 ```
-./hichip_qc.bash reference.fasta read1.fastq.gz reads2.fastq.gz chipseq_peaks.bed NA12878
+Usage: 
+./hichip_qc.bash <reference_fasta> <read1_fastq> <reaf2_fastq>  <chipseq_peaks>  <output_prefix> <num_cores>
+
+Example:
+./hichip_qc.bash reference.fasta read1.fastq.gz reads2.fastq.gz chipseq_peaks.bed NA12878 8
 ```
 
 `chipseq_peaks.bed` is a list of peaks called using ChipSeq data. We use this data from Encode data portal. 
