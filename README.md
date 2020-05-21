@@ -20,6 +20,7 @@ If you want a prebuilt conda environment with all the dependencies required to r
 
 ```
 ./create.sh
+conda activate dovetail
 ```
 
 This will create and activte an environment named `dovetail`. Once you are in this environment, you can run all the scripts here without installing any more dependencies!
