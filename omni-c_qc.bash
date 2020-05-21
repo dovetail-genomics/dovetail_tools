@@ -1,15 +1,28 @@
 #!/usr/bin/env bash
 
+
+if [  $# -le 6 ]
+then
+        echo "Too few arguments. Please provide all the required arguments."
+        echo "Usage: ./omni-c_qc.bash <reference_fasta> <read1_fastq> <reaf2_fastq>  <output_bam_name>  <sample_name> <num_cores>"
+        exit 1
+fi
+
+
+
+
 ref=$1
 fq1=$2
 fq2=$3
 out=$4
 rg=$5
+cores=$6
+
 
 #get source directory
 SRCDIR=`dirname $0`
 
-bwa mem -5SP -T0 -t4 \
+bwa mem -5SP -T0 -t ${cores} \
     -R "@RG\tID:$rg\tSM:$rg\tLB:$rg\tPL:ILLUMINA\tPU:none" \
     $ref \
     $fq1 \
@@ -17,7 +30,7 @@ bwa mem -5SP -T0 -t4 \
 | samblaster -i stdin -o stdout \
 | $SRCDIR/add_mate_MQ.py \
 | samtools view -S -h -b \
-| samtools sort --threads 4 - > $out ;
+| samtools sort --threads ${cores} - > $out ;
 
 samtools index $out ;
 
@@ -28,7 +41,7 @@ ps300m=`cat $out.preseq | grep -P "^300000000.0" | awk '{print $2}'`
 qualthresh=40
 mate_filter_cmd="perl -e 'while (<STDIN>) { m/MQ:i:(\\d+)/; if (\$1 >= \$ARGV[0]) { print; }}' $qualthresh"
 
-r1=`samtools view -c -q $qualthresh -f 0x40 -F 2304 $out`
+r1=`samtools view -c -q $qualthresh -f 0x40 -F 2304 $out | numfmt --g`
 r2=`samtools view -c -q $qualthresh -f 0x80 -F 2304 $out`
 
 mapped_pairs=`samtools view -q $qualthresh -f 0x40 -F 2316 $out | eval $mate_filter_cmd | wc -l`
@@ -42,6 +55,7 @@ mapped_nondupe_pairs_cis_gt10000=`samtools view -q $qualthresh -f 0x40 -F 3340 $
 mapped_trans_pairs=`samtools view -q $qualthresh -f 0x40 -F 3340 $out | awk '{if (sqrt($9^2) == 0) { print; }}' | eval $mate_filter_cmd | wc -l`
 
 valid_pairs=$(($mapped_nondupe_pairs_cis_gt1000 + $mapped_trans_pairs))
+
 
 echo "Mapping Quality Threshold         :" $qualthresh
 echo "Read1                             :" $r1

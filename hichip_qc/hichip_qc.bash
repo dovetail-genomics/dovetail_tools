@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 
-if [  $# -le 3 ]
+if [  $# -le 6 ]
 then
         echo "Too few arguments. Please provide all the required arguments."
-        echo "Usage: ./hichip_qc.bash <reference_fasta> <read1_fastq> <reaf2_fastq>  <chipseq_peaks>  <output_prefix>"
+        echo "Usage: ./hichip_qc.bash <reference_fasta> <read1_fastq> <reaf2_fastq>  <chipseq_peaks>  <output_prefix> <num_cores>"
         exit 1
 fi
 
@@ -13,6 +13,7 @@ r1fq=$2
 r2fq=$3
 peaks=$4
 prefix=$5
+cores=$6
 
 sample=`basename ${prefix}`
 
@@ -25,7 +26,7 @@ SRCDIR=`dirname $0`
 
 bam=${prefix}".bam"
 
-${SRCDIR}/../omni-c_qc.bash ${ref} ${r1fq} ${r2fq} ${bam}  ${sample}
+${SRCDIR}/../omni-c_qc.bash ${ref} ${r1fq} ${r2fq} ${bam}  ${sample} ${cores}
 
 #rerorder peaks file based on order of chromosomes in reference
 
@@ -47,7 +48,7 @@ wait
 
 #generate peak enrichment plot
 
-bamCoverage --bam ${bam} --outFileName  ${prefix}_coverage.bigwig --outFileFormat bigwig & 
+bamCoverage --bam ${bam} --outFileName  ${prefix}_coverage.bigwig --outFileFormat bigwig -p ${cores}& 
 
 plotFingerprint -b ${bam} --region chr20 --plotFile ${prefix}_chip_fingerprint_plot.png --outRawCounts ${prefix}_counts.tab &
 
