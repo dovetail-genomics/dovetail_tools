@@ -4,7 +4,7 @@
 if [  $# -le 5 ]
 then
         echo "Too few arguments. Please provide all the required arguments."
-        echo "Usage: ./hichip_qc.bash <reference_fasta> <read1_fastq> <reaf2_fastq>  <chipseq_peaks>  <output_prefix> <num_cores>"
+        echo "Usage: ./hichip_qc.bash <reference_fasta> <read1_fastq> <read2_fastq>  <chipseq_peaks>  <output_prefix> <num_cores>"
         exit 1
 fi
 
