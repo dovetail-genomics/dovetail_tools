@@ -1,4 +1,4 @@
 #!/bin/bash
 
-conda env create -f environment.yaml
+conda env create -f environment.yml
 conda activate dovetail
