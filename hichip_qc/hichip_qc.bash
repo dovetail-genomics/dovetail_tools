@@ -16,7 +16,7 @@ prefix=$5
 cores=$6
 
 sample=`basename ${prefix}`
-
+SRCDIR=`dirname $0`
 
 #first run omnic_qc
 
