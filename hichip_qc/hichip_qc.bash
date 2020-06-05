@@ -17,14 +17,10 @@ cores=$6
 
 sample=`basename ${prefix}`
 
-samtools faidx ${ref}
-cut -f1,2 ${ref}".fai" > ${prefix}".genome"
-genome=${prefix}".genome"
-SRCDIR=`dirname $0`
 
 #first run omnic_qc
 
-bam=${prefix}".bam"
+bam=${prefix}"-PT.bam"
 
 ${SRCDIR}/../omni-c_qc.bash ${ref} ${r1fq} ${r2fq} ${bam}  ${sample} ${cores}
 
@@ -52,10 +48,9 @@ bamCoverage --bam ${bam} --outFileName  ${prefix}_coverage.bigwig --outFileForma
 
 plotFingerprint -b ${bam} --region chr20 --plotFile ${prefix}_chip_fingerprint_plot.png --outRawCounts ${prefix}_counts.tab &
 
-wait 
-
 python ${SRCDIR}/plot_chip_fingerprint.py -table ${prefix}_counts.tab -output ${prefix}_chip_fingerprint_plot.png 
 python ${SRCDIR}/plot_chip_enrichment.py -bam ${bam} -peaks ${peaks} -output ${prefix}_chip_enrichment_plot.png
+
 
 #print final stats
 python ${SRCDIR}/count.py -b1  ${prefix}_peak_intersect.bed -b2 ${prefix}_peaks_intersect_500.bed \
