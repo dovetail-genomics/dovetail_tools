@@ -22,7 +22,7 @@ SRCDIR=`dirname $0`
 
 bam=${prefix}"-PT.bam"
 
-${SRCDIR}/../omni-c_qc.bash ${ref} ${r1fq} ${r2fq} ${bam}  ${sample} ${cores}
+${SRCDIR}/../omni-c_qc.bash ${ref} ${r1fq} ${r2fq} ${prefix}  ${sample} ${cores}
 
 #rerorder peaks file based on order of chromosomes in reference
 
