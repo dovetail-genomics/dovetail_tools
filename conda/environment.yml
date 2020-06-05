@@ -234,6 +234,7 @@ dependencies:
   - seqkit
   - deeptools
   - gatk4
+  - pairtools
   - pip:
     - boto3
     - argh==0.26.2
