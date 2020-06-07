@@ -79,10 +79,10 @@ This script depends on the following tools in addition to the tools required for
 All the tools except Juicertools are available in Bioconda. You can download the JAR file for juicertools and place it in the same directory as this reposity and name it as `juicertools.jar`. 
 
 ## Running
-After you generate the BAM, you can run contact map script as:
+After you run the alignments, you can use the `pairs.gz` file from the output to run contact map script as:
 
 ```
-./contact_map.sh alignment.bam reference.fasta Sample
+./contact_map.sh <pair.gz file> <reference_fasta> <output_prefix>> <num_cores>
 ```
 
 This will generate 3 files: `Sample.hic` - Hi-C contact map in .hic format, `Sample.cool` - Hi-C contact map at 1kb resolution in cool format, and `Sample.mcool` - Hi-C contact map at multiple resolutions in mcool format. 

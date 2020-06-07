@@ -1,5 +1,14 @@
 #!/bin/bash
 
+if [  $# -le 3 ]
+then
+        echo "Too few arguments. Please provide all the required arguments."
+        echo "Usage: ./contact_map.sh <pair.gz file> <reference_fasta> <output_prefix>> <num_cores>"
+        exit 1
+fi
+
+
+
 pairs=$1
 ref=$2
 prefix=$3
