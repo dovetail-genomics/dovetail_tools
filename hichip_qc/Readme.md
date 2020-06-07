@@ -35,8 +35,6 @@ Mapping Quality Threshold         : 40
 Read1                             : 7436
 Read2                             : 8254
 Mapped pairs                      : 6852
-PCR dupe pairs                    : 3
-Mapped nondupe pairs              : 6849
 Valid Pairs (cis>1000bp + trans)  : 2991
 Mapped nondupe pairs cis          : 5935
 Mapped nondupe pairs cis <=1000bp : 3858
