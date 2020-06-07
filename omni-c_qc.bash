@@ -33,7 +33,7 @@ bwa mem -5SP -T0 -t${cores} \
 | pairtools parse --chroms-path ${genome}\
 | pairtools sort  --nproc ${cores} \
 | pairtools dedup --nproc-in ${cores} --nproc-out ${cores} --mark-dups  \
- 	--output-stats ${outprefix}-PT.stats.txt \
+ 	--output-stats ${outprefix}-PT.stats.txt --output-dups - \
 | pairtools split --nproc-in ${cores} --nproc-out ${cores} \
 	--output-pairs ${outprefix}.PT.pairs.gz  \
 	--output-sam - \
@@ -71,8 +71,8 @@ echo "Mapping Quality Threshold         :" $qualthresh
 echo "Read1                             :" $r1
 echo "Read2                             :" $r2
 echo "Mapped pairs                      :" $mapped_pairs
-#echo "PCR dupe pairs                    :" $pcr_dupe_pairs
-#echo "Mapped nondupe pairs              :" $mapped_nondupe_pairs
+echo "PCR dupe pairs                    :" $pcr_dupe_pairs
+echo "Mapped nondupe pairs              :" $mapped_nondupe_pairs
 echo "Valid Pairs (cis>1000bp + trans)  :" $valid_pairs
 echo "Mapped nondupe pairs cis          :" $mapped_nondupe_pairs_cis
 echo "Mapped nondupe pairs cis <=1000bp :" $mapped_nondupe_pairs_cis_lt1000
