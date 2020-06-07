@@ -4,7 +4,7 @@
 if [  $# -le 5 ]
 then
         echo "Too few arguments. Please provide all the required arguments."
-        echo "Usage: ./omni-c_qc.bash <reference_fasta> <read1_fastq> <reaf2_fastq>  <output_bam_name>  <sample_name> <num_cores>"
+        echo "Usage: ./omni-c_qc.bash <reference_fasta> <read1_fastq> <reaf2_fastq>  <output_prefix>  <sample_name> <num_cores>"
         exit 1
 fi
 
@@ -71,8 +71,8 @@ echo "Mapping Quality Threshold         :" $qualthresh
 echo "Read1                             :" $r1
 echo "Read2                             :" $r2
 echo "Mapped pairs                      :" $mapped_pairs
-echo "PCR dupe pairs                    :" $pcr_dupe_pairs
-echo "Mapped nondupe pairs              :" $mapped_nondupe_pairs
+#echo "PCR dupe pairs                    :" $pcr_dupe_pairs
+#echo "Mapped nondupe pairs              :" $mapped_nondupe_pairs
 echo "Valid Pairs (cis>1000bp + trans)  :" $valid_pairs
 echo "Mapped nondupe pairs cis          :" $mapped_nondupe_pairs_cis
 echo "Mapped nondupe pairs cis <=1000bp :" $mapped_nondupe_pairs_cis_lt1000

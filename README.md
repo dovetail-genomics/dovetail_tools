@@ -11,6 +11,7 @@ This script depends on the following tools:
 - [samtools](https://github.com/samtools)
 - [samblaster](https://github.com/GregoryFaust/samblaster)
 - [preseq](http://smithlabresearch.org/software/preseq/)
+- [pairtools](https://github.com/mirnylab/pairtools)
 
 All of these tools are installable via [BioConda](https://bioconda.github.io). 
 
@@ -29,7 +30,7 @@ This will create and activte an environment named `dovetail`. Once you are in th
 Given paired FASTQ's and a reference FASTA, run:
 
 ```
-./omni-c_qc.bash reference.fasta read1.fastq.gz read2.fastq.gz alignment.bam READGROUP_NAME
+./omni-c_qc.bash <reference_fasta> <read1_fastq> <reaf2_fastq>  <output_prefix>  <sample_name> <num_cores>
 ```
 
 Substitute appropriate file names. READGROUP name is arbitrary.
