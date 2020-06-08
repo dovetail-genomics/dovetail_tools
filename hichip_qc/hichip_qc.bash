@@ -23,9 +23,11 @@ OUTPUTFILE=${prefix}"_hichip_qc_metrics.txt"
 
 bam=${prefix}"-PT.bam"
 
+genome=${prefix}.genome
 ${SRCDIR}/../omni-c_qc.bash ${ref} ${r1fq} ${r2fq} ${prefix}  ${sample} ${cores} > ${OUTPUTFILE}
 
 #rerorder peaks file based on order of chromosomes in reference
+
 
 bedtools sort -g ${genome} -i ${peaks} > ${prefix}_reordered_peaks.bed
 
@@ -59,6 +61,6 @@ python ${SRCDIR}/plot_chip_enrichment.py -bam ${bam} -peaks ${peaks} -output ${p
 #print final stats
 python ${SRCDIR}/count.py -b1  ${prefix}_peak_intersect.bed -b2 ${prefix}_peaks_intersect_500.bed \
 	-b3 ${prefix}_peaks_intersect_1000.bed -b4 ${prefix}_peaks_intersect_2000.bed \
-	-b5 ${prefix}_peaks_intersect_5000.bed   -bam ${bam} -peaks ${peaks} >> > ${OUTPUTFILE}
+	-b5 ${prefix}_peaks_intersect_5000.bed   -bam ${bam} -peaks ${peaks} >> ${OUTPUTFILE}
 
 
