@@ -1,7 +1,7 @@
-# Omni-C QC
+# Proximity Ligation Libraries QC
 ## Description
 
-This repo hosts a shell script (`omni-c_qc.bash`), that can be used to perform quick QC on shallowly sequenced Omni-C libraries. It is also appropriate for DpnII Hi-C libraries. We align and postprocess the data using the [pipeline](https://data.4dnucleome.org/resources/data-analysis/hi_c-processing-pipeline?redirected_from=%2Fhelp%2Fanalysis-and-visualization%2Fhi_c-processing-pipeline)  recommended by the 4DN consortium.  
+This repo hosts a shell script (`omni-c_qc.bash`), that can be used to perform quick QC on shallowly sequenced proximity ligation libraries. We align and postprocess the data using the [pipeline](https://data.4dnucleome.org/resources/data-analysis/hi_c-processing-pipeline?redirected_from=%2Fhelp%2Fanalysis-and-visualization%2Fhi_c-processing-pipeline)  recommended by the 4DN consortium.  
 
 ## Requirements
 
