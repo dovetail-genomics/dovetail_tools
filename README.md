@@ -1,7 +1,7 @@
 # Omni-C QC
 ## Description
 
-This repo hosts a shell script (`omni-c_qc.bash`), that can be used to perform quick QC on shallowly sequenced Omni-C libraries. It is also appropriate for DpnII Hi-C libraries. 
+This repo hosts a shell script (`omni-c_qc.bash`), that can be used to perform quick QC on shallowly sequenced Omni-C libraries. It is also appropriate for DpnII Hi-C libraries. We align and postprocess the data using the [pipeline](https://data.4dnucleome.org/resources/data-analysis/hi_c-processing-pipeline?redirected_from=%2Fhelp%2Fanalysis-and-visualization%2Fhi_c-processing-pipeline)  recommended by the 4DN consortium.  
 
 ## Requirements
 
@@ -11,16 +11,26 @@ This script depends on the following tools:
 - [samtools](https://github.com/samtools)
 - [samblaster](https://github.com/GregoryFaust/samblaster)
 - [preseq](http://smithlabresearch.org/software/preseq/)
+- [pairtools](https://github.com/mirnylab/pairtools)
 
-All of these tools are installable via [BioConda](https://bioconda.github.io).
+All of these tools are installable via [BioConda](https://bioconda.github.io). 
 
 Install them however is most convinent for you. They are expected to be in your path.
+
+If you want a prebuilt conda environment with all the dependencies required to run scripts in this repository, you can run following from the `conda` folder in this repo.
+
+```
+./create.sh
+conda activate dovetail
+```
+
+This will create and activte an environment named `dovetail`. Once you are in this environment, you can run all the scripts here without installing any more dependencies!
 
 ## Running
 Given paired FASTQ's and a reference FASTA, run:
 
 ```
-./omni-c_qc.bash reference.fasta read1.fastq.gz read2.fastq.gz alignment.bam READGROUP_NAME
+./omni-c_qc.bash <reference_fasta> <read1_fastq> <reaf2_fastq>  <output_prefix>  <sample_name> <num_cores>
 ```
 
 Substitute appropriate file names. READGROUP name is arbitrary.
@@ -53,6 +63,9 @@ We consider a library prepared from **non-mammalian** sample to be acceptable if
 - Mapped nondupe pairs cis < 1,000 bp is lower than 40% of the total mapped nondupe pairs.
 - Expected unique pairs at 300M sequencing is at least ~ 120 million.
 
+In addition to this, it will create a stats file from pairtools describing variety of metrics for detailed inspection. 
+It will also generate all the pairs in a file ending with  `pairs.gz`. This file can be used to generate contact map.
+
 # Contact Map Creation
 ## Description
 This is the description of the scripts that will enable creation of contact map in hic and cool format from the BAM file generated in QC step. 
@@ -69,10 +82,10 @@ This script depends on the following tools in addition to the tools required for
 All the tools except Juicertools are available in Bioconda. You can download the JAR file for juicertools and place it in the same directory as this reposity and name it as `juicertools.jar`. 
 
 ## Running
-After you generate the BAM, you can run contact map script as:
+After you run the alignments, you can use the `pairs.gz` file from the output to run contact map script as:
 
 ```
-./contact_map.sh alignment.bam reference.fasta Sample
+./contact_map.sh <pair.gz file> <reference_fasta> <output_prefix>> <num_cores>
 ```
 
 This will generate 3 files: `Sample.hic` - Hi-C contact map in .hic format, `Sample.cool` - Hi-C contact map at 1kb resolution in cool format, and `Sample.mcool` - Hi-C contact map at multiple resolutions in mcool format. 
