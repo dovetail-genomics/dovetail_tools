@@ -30,7 +30,7 @@ This will create and activte an environment named `dovetail`. Once you are in th
 Given paired FASTQ's and a reference FASTA, run:
 
 ```
-./omni-c_qc.bash <reference_fasta> <read1_fastq> <reaf2_fastq>  <output_prefix>  <sample_name> <num_cores>
+./omni-c_qc.bash <reference_fasta> <read1_fastq.gz> <read2_fastq.gz>  <output_prefix>  <sample_name> <num_cores>
 ```
 
 Substitute appropriate file names. READGROUP name is arbitrary.
@@ -85,7 +85,7 @@ All the tools except Juicertools are available in Bioconda. You can download the
 After you run the alignments, you can use the `pairs.gz` file from the output to run contact map script as:
 
 ```
-./contact_map.sh <pair.gz file> <reference_fasta> <output_prefix>> <num_cores>
+./contact_map.sh <pair.gz file> <reference_fasta> <output_prefix> <num_cores>
 ```
 
 This will generate 3 files: `Sample.hic` - Hi-C contact map in .hic format, `Sample.cool` - Hi-C contact map at 1kb resolution in cool format, and `Sample.mcool` - Hi-C contact map at multiple resolutions in mcool format. 
