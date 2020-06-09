@@ -63,6 +63,9 @@ We consider a library prepared from **non-mammalian** sample to be acceptable if
 - Mapped nondupe pairs cis < 1,000 bp is lower than 40% of the total mapped nondupe pairs.
 - Expected unique pairs at 300M sequencing is at least ~ 120 million.
 
+In addition to this, it will create a stats file from pairtools describing variety of metrics for detailed inspection. 
+It will also generate all the pairs in a file ending with  `pairs.gz`. This file can be used to generate contact map.
+
 # Contact Map Creation
 ## Description
 This is the description of the scripts that will enable creation of contact map in hic and cool format from the BAM file generated in QC step. 
