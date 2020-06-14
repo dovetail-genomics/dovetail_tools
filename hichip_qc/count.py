@@ -11,7 +11,7 @@ def get_read_count(bedfile):
         for line in f:
             attrs = line.split()
             read = attrs[4].split('/')[0]
-            if read != last_read:
+            if read == last_read:
                 count += 1
             last_read = read
     return count
