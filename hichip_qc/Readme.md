@@ -42,19 +42,20 @@ Mapped nondupe pairs cis >1000bp  : 2077
 Mapped nondupe pairs cis >10000bp : 1664
 Mapped nondupe trans pairs        : 914
 Expected unique pairs at 300M sequencing:  19296365.7
-Total ChIP peaks:       45023
-Mean ChIP peak size:    168 bp
-Median ChIP peak size:  204 bp
-Total read pairs in 500 bp around peaks:        211(1.68%)
-Total read pairs in 1000 bp around peaks:       353(2.8%)
-Total read pairs in 2000 bp around peaks:       548(4.35%)
-Total read pairs in 5000 bp around peaks:       1,144(9.08%)
+Total ChIP peaks:       31,165
+Mean ChIP peak size:    294 bp
+Median ChIP peak size:  350 bp
+Total read pairs in peaks:      1,392,100(1.9%)
+Total read pairs in 500 bp around peaks:        10,715,437(14.66%)
+Total read pairs in 1000 bp around peaks:       18,834,017(25.76%)
+Total read pairs in 2000 bp around peaks:       31,470,568(43.05%)
+Total read pairs in 5000 bp around peaks:       51,501,793(70.44%)
 ```
 
 Along with these statistics, the QC pipeline will output two plots. The first one is for the coverage enrichent around ChIP peaks. It would look as follows
 
 
-![ChIP Enrichment Plot ](plot_enrichment.png)
+![ChIP Enrichment Plot ](enrichment_plot.png)
 
 It will also output ChIP fingerprint plot as follows:
 
