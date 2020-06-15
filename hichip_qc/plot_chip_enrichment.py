@@ -37,15 +37,15 @@ count = 0
 
 coverage = dict()
 
-for i in range(-10000, 10001):
+for i in range(-1000, 1001):
     coverage[i] = 0
 
 count = 0
 for num, row in peak_data_filtered.iterrows():
     chrom = row["chromosome"]
     center = row["start"] + row["offset"]
-    start = center - 10000
-    end = center + 10000
+    start  = center - 1000
+    end = center + 1000
     x = []
     y = []
     count += 1
@@ -60,16 +60,12 @@ for num, row in peak_data_filtered.iterrows():
 
 x = list(coverage.keys())
 y = list(coverage.values())
-N = 200
-y_smooth = np.convolve(y, np.ones((N,))/N, mode='valid')
-y_smooth_norm =[float(i)/np.mean(y_smooth) for i in y_smooth]
-x_ticks = [0, 2500, 5000, 7500, 10000, 12500, 15000, 17500, 20000] 
-x_labels = ["-10kb", "-7.5kb", "-5kb", "-2.5kb", "0kb", "+2.5kb", "+5kb", "+7.5kb", "+10kb"]
+x_ticks = [0, 250, 500, 750, 1000, 1250, 1500, 1750, 2000] 
+x_labels = ["-1000 bp", "-750 bp", "-500 bp", "-250 bp", "0 bp", "+250 bp", "+500 bp", "+750 bp", "+1000 bp"]
 
-plt.xticks(ticks=x_ticks, labels=x_labels)
+plt.xticks(ticks=x_ticks, labels=x_labels, fontsize=7)
 plt.grid()
-#plt.tight_layout()
-plt.plot(y_smooth_norm)
+plt.plot(y)
 plt.title("Coverage around ChIP peaks")
 plt.xlabel("Distance from the peak center")
 plt.ylabel("Fold coverage change  based on average coverage")
