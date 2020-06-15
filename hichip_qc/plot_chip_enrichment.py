@@ -63,6 +63,7 @@ y = list(coverage.values())
 x_ticks = [0, 250, 500, 750, 1000, 1250, 1500, 1750, 2000] 
 x_labels = ["-1000 bp", "-750 bp", "-500 bp", "-250 bp", "0 bp", "+250 bp", "+500 bp", "+750 bp", "+1000 bp"]
 
+y = [float(i)/np.mean(y) for i in y]
 plt.xticks(ticks=x_ticks, labels=x_labels, fontsize=7)
 plt.grid()
 plt.plot(y)
