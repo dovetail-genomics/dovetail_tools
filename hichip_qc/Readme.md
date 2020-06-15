@@ -55,7 +55,7 @@ Total read pairs in 5000 bp around peaks:       51,501,793(70.44%)
 Along with these statistics, the QC pipeline will output two plots. The first one is for the coverage enrichent around ChIP peaks. It would look as follows
 
 
-![ChIP Enrichment Plot ](enrichment_plot.png)
+![ChIP Enrichment Plot ](chip_enrichment_plot.png)
 
 It will also output ChIP fingerprint plot as follows:
 
