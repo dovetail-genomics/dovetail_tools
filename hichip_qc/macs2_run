@@ -30,7 +30,6 @@ if __name__ == "__main__":
     else:
         convert_control = f"{script_dir}/reset_flag.py {args.c} {args.o}/{args.p}.control.SE.bam && samtools index {args.o}/{args.p}.control.SE.bam"       
         os.system(convert_control)
-        convert-co
         if args.b:
             macs2_command = f"macs2 callpeak -g hs --broad -t {args.o}/{args.p}.treatment.SE.bam -c {args.o}/{args.p}.control.SE.bam -f BAM --bdg --outdir {args.o} -n {args.p}"
         else:
