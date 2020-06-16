@@ -1,0 +1,41 @@
+#!/usr/bin/env python3
+import argparse
+import subprocess
+import os
+
+if __name__ == "__main__":
+    
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-t", help="Treatment BAM file", required=True)
+    parser.add_argument("-c", help="Control BAM file", required=False, default="absent")
+    parser.add_argument("-b", action="store_true", help="Set this to call broad peaks")
+    parser.add_argument("-o", help="Output directory to write results", required=True)
+    parser.add_argument("-p", help="Output prefix", required=True)
+    
+    args = parser.parse_args()
+    
+    script_dir = os.path.dirname(os.path.realpath(__file__))
+    os.system(f"mkdir -p {args.o}")
+
+    #macs2 callpeak -t HiChIP-SE.bam  -f BAM --outdir HiChIP_Peaks -n HiChip --bdg
+    convert_treatment = f"{script_dir}/reset_flag.py {args.t} {args.o}/{args.p}.treatment.SE.bam && samtools index {args.o}/{args.p}.treatment.SE.bam"  
+    os.system(convert_treatment)
+
+    if args.c == "absent":
+        if args.b:
+            macs2_command = f"macs2 callpeak -g hs --broad -t {args.o}/{args.p}.treatment.SE.bam -f BAM --bdg --outdir {args.o} -n {args.p}"
+        else:
+            macs2_command = f"macs2 callpeak -g hs -t {args.o}/{args.p}.treatment.SE.bam -f BAM --bdg --outdir {args.o} -n {args.p}"
+        os.system(macs2_command)
+    else:
+        convert_control = f"{script_dir}/reset_flag.py {args.c} {args.o}/{args.p}.control.SE.bam && samtools index {args.o}/{args.p}.control.SE.bam"       
+        os.system(convert_control)
+        convert-co
+        if args.b:
+            macs2_command = f"macs2 callpeak -g hs --broad -t {args.o}/{args.p}.treatment.SE.bam -c {args.o}/{args.p}.control.SE.bam -f BAM --bdg --outdir {args.o} -n {args.p}"
+        else:
+            macs2_command = f"macs2 callpeak -g hs -t {args.o}/{args.p}.treatment.SE.bam -c {args.o}/{args.p}.control.SE.bam -f BAM --bdg --outdir {args.o} -n {args.p}"
+        os.system(macs2_command)
+
+
+        
