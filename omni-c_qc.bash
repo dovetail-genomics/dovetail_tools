@@ -37,6 +37,7 @@ bwa mem -5SP -T0 -t${cores} \
 | pairtools split --nproc-in ${cores} --nproc-out ${cores} \
 	--output-pairs ${outprefix}.PT.pairs.gz  \
 	--output-sam - \
+| ${SRCDIR}/add_mate_MQ.py \
 | samtools view -bS - \
 | samtools sort -@${cores} - -o ${outprefix}-PT.bam
 
@@ -68,15 +69,15 @@ valid_pairs=$(($mapped_nondupe_pairs_cis_gt1000 + $mapped_trans_pairs))
 
 
 echo "Mapping Quality Threshold         :" $qualthresh
-echo "Read1                             :" $r1
-echo "Read2                             :" $r2
-echo "Mapped pairs                      :" $mapped_pairs
-echo "PCR dupe pairs                    :" $pcr_dupe_pairs
-echo "Mapped nondupe pairs              :" $mapped_nondupe_pairs
-echo "Valid Pairs (cis>1000bp + trans)  :" $valid_pairs
-echo "Mapped nondupe pairs cis          :" $mapped_nondupe_pairs_cis
-echo "Mapped nondupe pairs cis <=1000bp :" $mapped_nondupe_pairs_cis_lt1000
-echo "Mapped nondupe pairs cis >1000bp  :" $mapped_nondupe_pairs_cis_gt1000
-echo "Mapped nondupe pairs cis >10000bp :" $mapped_nondupe_pairs_cis_gt10000
-echo "Mapped nondupe trans pairs        :" $mapped_trans_pairs
+echo "Read1                             :" `echo $r1 | sed ':a;s/\B[0-9]\{3\}\>/,&/;ta'`
+echo "Read2                             :" `echo $r2 | sed ':a;s/\B[0-9]\{3\}\>/,&/;ta'`
+echo "Mapped pairs                      :" `echo $mapped_pairs | sed ':a;s/\B[0-9]\{3\}\>/,&/;ta'`
+echo "PCR dupe pairs                    :" `echo $pcr_dupe_pairs | sed ':a;s/\B[0-9]\{3\}\>/,&/;ta'`
+echo "Mapped nondupe pairs              :" `echo $mapped_nondupe_pairs | sed ':a;s/\B[0-9]\{3\}\>/,&/;ta'`
+echo "Valid Pairs (cis>1000bp + trans)  :" `echo $valid_pairs | sed ':a;s/\B[0-9]\{3\}\>/,&/;ta'`
+echo "Mapped nondupe pairs cis          :" `echo $mapped_nondupe_pairs_cis | sed ':a;s/\B[0-9]\{3\}\>/,&/;ta'`
+echo "Mapped nondupe pairs cis <=1000bp :" `echo $mapped_nondupe_pairs_cis_lt1000 | sed ':a;s/\B[0-9]\{3\}\>/,&/;ta'`
+echo "Mapped nondupe pairs cis >1000bp  :" `echo $mapped_nondupe_pairs_cis_gt1000 | sed ':a;s/\B[0-9]\{3\}\>/,&/;ta'`
+echo "Mapped nondupe pairs cis >10000bp :" `echo $mapped_nondupe_pairs_cis_gt10000 | sed ':a;s/\B[0-9]\{3\}\>/,&/;ta'`
+echo "Mapped nondupe trans pairs        :" `echo $mapped_trans_pairs | sed ':a;s/\B[0-9]\{3\}\>/,&/;ta'`
 echo "Expected unique pairs at 300M sequencing: " $ps300m
