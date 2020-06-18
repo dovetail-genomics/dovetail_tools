@@ -44,14 +44,6 @@ Mapped nondupe pairs cis >1000bp  : 19,996,862
 Mapped nondupe pairs cis >10000bp : 6,399,456
 Mapped nondupe trans pairs        : 10,991,846
 Expected unique pairs at 300M sequencing:  217914791.5
-Total ChIP peaks:       286,152
-Mean ChIP peak size:    198 bp
-Median ChIP peak size:  204 bp
-Total read pairs in 500 bp around peaks:        43,891,483(60.04%)
-Total read pairs in 1000 bp around peaks:       72,337,180(98.94%)
-Total read pairs in 2000 bp around peaks:       125,314,379(171.41%)
-Total read pairs in 5000 bp around peaks:       262,257,045(358.72%)
-['60']
 Total ChIP peaks:       31,165
 Mean ChIP peak size:    294 bp
 Median ChIP peak size:  350 bp
