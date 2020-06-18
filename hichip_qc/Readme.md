@@ -32,7 +32,7 @@ This will print output as follows:
 
 ```
 Mapping Quality Threshold         : 40
-Read1                             : 7,0958,590
+Read1                             : 70,958,590
 Read2                             : 70,868,593
 Mapped pairs                      : 70,958,590
 PCR dupe pairs                    : 8,852,388
