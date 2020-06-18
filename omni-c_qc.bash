@@ -55,15 +55,15 @@ mate_filter_cmd="perl -e 'while (<STDIN>) { m/MQ:i:(\\d+)/; if (\$1 >= \$ARGV[0]
 r1=`samtools view -c -q $qualthresh -f 0x40 -F 2304 ${outprefix}-PT.bam`
 r2=`samtools view -c -q $qualthresh -f 0x80 -F 2304 ${outprefix}-PT.bam`
 
-mapped_pairs=`samtools view -q $qualthresh -f 0x40 -F 2316 ${outprefix}-PT.bam | perl -e 'while (<STDIN>) { m/MQ:i:(\\d+)/; if (\$1 >= \$ARGV[0]) { print; }}' | wc -l`
-pcr_dupe_pairs=`samtools view -q $qualthresh -u -f 0x40 -F 2316 ${outprefix}-PT.bam | samtools view -f 0x400 | perl -e 'while (<STDIN>) { m/MQ:i:(\\d+)/; if (\$1 >= \$ARGV[0]) { print; }}' | wc -l`
+mapped_pairs=`samtools view -q $qualthresh -f 0x40 -F 2316 ${outprefix}-PT.bam | eval $mate_filter_cmd | wc -l`
+pcr_dupe_pairs=`samtools view -q $qualthresh -u -f 0x40 -F 2316 ${outprefix}-PT.bam | samtools view -f 0x400 | eval $mate_filter_cmd | wc -l`
 
-mapped_nondupe_pairs=`samtools view -q $qualthresh -f 0x40 -F 3340 ${outprefix}-PT.bam | perl -e 'while (<STDIN>) { m/MQ:i:(\\d+)/; if (\$1 >= \$ARGV[0]) { print; }}' | wc -l`
-mapped_nondupe_pairs_cis=`samtools view -q $qualthresh -f 0x40 -F 3340 ${outprefix}-PT.bam | awk '{if (sqrt($9^2) > 0) { print; }}' | perl -e 'while (<STDIN>) { m/MQ:i:(\\d+)/; if (\$1 >= \$ARGV[0]) { print; }}' | wc -l`
-mapped_nondupe_pairs_cis_lt1000=`samtools view -q $qualthresh -f 0x40 -F 3340 ${outprefix}-PT.bam | awk '{if ((sqrt($9^2) <= 1000) && ($9 != 0)) { print; }}' | perl -e 'while (<STDIN>) { m/MQ:i:(\\d+)/; if (\$1 >= \$ARGV[0]) { print; }}' | wc -l`
-mapped_nondupe_pairs_cis_gt1000=`samtools view -q $qualthresh -f 0x40 -F 3340 ${outprefix}-PT.bam | awk '{if (sqrt($9^2) > 1000) { print; }}' | perl -e 'while (<STDIN>) { m/MQ:i:(\\d+)/; if (\$1 >= \$ARGV[0]) { print; }}' | wc -l`
-mapped_nondupe_pairs_cis_gt10000=`samtools view -q $qualthresh -f 0x40 -F 3340 ${outprefix}-PT.bam | awk '{if (sqrt($9^2) > 10000) { print; }}' | perl -e 'while (<STDIN>) { m/MQ:i:(\\d+)/; if (\$1 >= \$ARGV[0]) { print; }}' | wc -l`
-mapped_trans_pairs=`samtools view -q $qualthresh -f 0x40 -F 3340 ${outprefix}-PT.bam | awk '{if (sqrt($9^2) == 0) { print; }}' | perl -e 'while (<STDIN>) { m/MQ:i:(\\d+)/; if (\$1 >= \$ARGV[0]) { print; }}' | wc -l`
+mapped_nondupe_pairs=`samtools view -q $qualthresh -f 0x40 -F 3340 ${outprefix}-PT.bam | eval $mate_filter_cmd | wc -l`
+mapped_nondupe_pairs_cis=`samtools view -q $qualthresh -f 0x40 -F 3340 ${outprefix}-PT.bam | awk '{if (sqrt($9^2) > 0) { print; }}' | eval $mate_filter_cmd | wc -l`
+mapped_nondupe_pairs_cis_lt1000=`samtools view -q $qualthresh -f 0x40 -F 3340 ${outprefix}-PT.bam | awk '{if ((sqrt($9^2) <= 1000) && ($9 != 0)) { print; }}' | eval $mate_filter_cmd | wc -l`
+mapped_nondupe_pairs_cis_gt1000=`samtools view -q $qualthresh -f 0x40 -F 3340 ${outprefix}-PT.bam | awk '{if (sqrt($9^2) > 1000) { print; }}' | eval $mate_filter_cmd | wc -l`
+mapped_nondupe_pairs_cis_gt10000=`samtools view -q $qualthresh -f 0x40 -F 3340 ${outprefix}-PT.bam | awk '{if (sqrt($9^2) > 10000) { print; }}' | eval $mate_filter_cmd | wc -l`
+mapped_trans_pairs=`samtools view -q $qualthresh -f 0x40 -F 3340 ${outprefix}-PT.bam | awk '{if (sqrt($9^2) == 0) { print; }}' | eval $mate_filter_cmd | wc -l`
 
 valid_pairs=$(($mapped_nondupe_pairs_cis_gt1000 + $mapped_trans_pairs))
 
