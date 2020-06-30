@@ -32,3 +32,25 @@ bedtools intersect -a ${output_vcf}.gz -b ${output_root}_highconf.bed > ${output
 
 bgzip ${output_root}_highconf.vcf
 tabix -p vcf ${output_root}_highconf.vcf.gz
+
+
+
+# Note:  If you want to compute SNP concordance with gatk Concordance you will
+# need to create a high confident bed file that is the intersection of the ConfidentRegions.bed
+# that ships with, for example, Illumina Platinum truthset AND the OmniC confident regions
+# bed file created above, ${output_root}_highconf.bed and pass that into gatkConcordance as 
+# the interval like: 
+
+# bedtools intersect -a ${snpcalling_intervals} -b ${output_root}_highconf.bed > ConfidentANDOmniConfident.bed 
+#gatk Concordance \
+#     -R /local/ref/hg38/GRCh38.p12.fa \
+#     -isr INTERSECTION \
+#     -L  ConfidentANDOmniConfident.bed  \
+#     -truth $truthset \
+#     -eval $eval_vcf \
+#     --summary ${output_root}_summary.tsv \
+#     -tpfp ${output_root}_tpfp.vcf \
+#     -tpfn ${output_root}_tpfn.vcf
+
+# This will restrict the evaltuion to the confident regions and give you a clearer picture of how good
+# the confident SNP calls probably are compared to a truthset. 
