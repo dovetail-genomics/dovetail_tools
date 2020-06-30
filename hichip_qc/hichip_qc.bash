@@ -19,12 +19,13 @@ sample=`basename ${prefix}`
 SRCDIR=`dirname $0`
 
 OUTPUTFILE=${prefix}"_hichip_qc_metrics.txt"
+TMPOUT=${prefix}"_hichip_qc_metrics.txt.tmp"
 #first run omnic_qc
 
 bam=${prefix}"-PT.bam"
 
 genome=${prefix}.genome
-${SRCDIR}/../omni-c_qc.bash ${ref} ${r1fq} ${r2fq} ${prefix}  ${sample} ${cores} > ${OUTPUTFILE}
+${SRCDIR}/../omni-c_qc.bash ${ref} ${r1fq} ${r2fq} ${prefix}  ${sample} ${cores} > ${TMPOUT}
 
 #rerorder peaks file based on order of chromosomes in reference
 
@@ -38,10 +39,9 @@ grep -w 'chr20' ${bed} > ${bed_chr20}
 
 #compute how many reads intersect with peaks
 bedtools intersect -a ${bam} -b ${bed} -bed | sort -k4 > ${prefix}_peak_intersect.bed &
-bedtools window -w 500 -abam ${bam} -b ${peaks} -bed | sort -k4 > ${prefix}_peaks_intersect_500.bed &
-bedtools window -w 1000 -abam ${bam} -b ${peaks} -bed | sort -k4 > ${prefix}_peaks_intersect_1000.bed &
-bedtools window -w 2000 -abam ${bam} -b ${peaks} -bed | sort -k4 > ${prefix}_peaks_intersect_2000.bed &
-bedtools window -w 5000 -abam ${bam} -b ${peaks} -bed | sort -k4 > ${prefix}_peaks_intersect_5000.bed &
+bedtools window -w 250 -abam ${bam} -b ${peaks} -bed | sort -k4 > ${prefix}_peaks_intersect_500.bed &
+bedtools window -w 500 -abam ${bam} -b ${peaks} -bed | sort -k4 > ${prefix}_peaks_intersect_1000.bed &
+bedtools window -w 1000 -abam ${bam} -b ${peaks} -bed | sort -k4 > ${prefix}_peaks_intersect_2000.bed &
 
 wait
 
@@ -61,6 +61,6 @@ python ${SRCDIR}/plot_chip_enrichment.py -bam ${bam} -peaks ${peaks} -output ${p
 #print final stats
 python ${SRCDIR}/count.py -b1  ${prefix}_peak_intersect.bed -b2 ${prefix}_peaks_intersect_500.bed \
 	-b3 ${prefix}_peaks_intersect_1000.bed -b4 ${prefix}_peaks_intersect_2000.bed \
-	-b5 ${prefix}_peaks_intersect_5000.bed   -bam ${bam} -peaks ${peaks} >> ${OUTPUTFILE}
+	-bam ${bam} -peaks ${peaks} >> ${TMPOUT}
 
-
+python  ${SRCDIR}/make_report.py -i ${TMPOUT} -o ${OUTPUTFILE}
