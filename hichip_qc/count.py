@@ -8,15 +8,13 @@ def get_read_count(bedfile):
     count = 0
     last_read = ''
     prev_id = ''
+    reads = set()
     with open(bedfile,'r') as f:
         for line in f:
             attrs = line.split()
-            read, read_id = attrs[3].split('/')
-            if read == last_read and read_id != prev_id:
-                count += 1
-            last_read = read
-            prev_id = read_id
-    return count
+            read = attrs[3]
+            reads.add(read)
+    return len(reads)
 
 
 def get_expected_observed(num_peaks, window_size, ref_length, reads_total, reads_observed):
@@ -32,6 +30,7 @@ if __name__ == "__main__":
     parser.add_argument('-b2',help="bedfile2")
     parser.add_argument('-b3',help="bedfile3")
     parser.add_argument('-b4',help="bedfile4")
+    parser.add_argument('-b5', help='bedfile5')
     parser.add_argument('-peaks',help="input peaks")
     parser.add_argument('-bam',help="bamfile")
     args = parser.parse_args()
@@ -41,11 +40,13 @@ if __name__ == "__main__":
     in_500_peaks = get_read_count(args.b2)
     in_1000_peaks = get_read_count(args.b3)
     in_2000_peaks = get_read_count(args.b4)
+    in_blacklist = get_read_count(args.b5)
 
     in_peaks_fmt = format(in_peaks,",d")
     in_500_peaks_fmt = format(in_500_peaks,",d")
     in_1000_peaks_fmt = format(in_1000_peaks,",d")
     in_2000_peaks_fmt = format(in_2000_peaks,",d")
+    in_blacklist_fmt = format(in_blacklist,",d")
 
     bamfile = pysam.AlignmentFile(args.bam,'rb')
 
@@ -66,22 +67,25 @@ if __name__ == "__main__":
     ref_length = sum(bamfile.lengths)
 
     bp_outside_loops = ref_length - bp_in_loops
-
+    
+    total_no_reads = 0
     for r in bamfile.fetch(until_eof=True):
-         if r.is_paired:
-            paired_reads += 1
+         if not r.is_unmapped and not r.is_secondary and not r.is_supplementary:
+            total_no_reads += 1
 
     
-    ratio_in_peaks = round(get_expected_observed(number_of_loops,np.mean(peak_size), ref_length, paired_reads, in_peaks), 2)
-    ratio_in_500_peaks = round(get_expected_observed(number_of_loops,np.mean(peak_size) + 500, ref_length, paired_reads, in_500_peaks),2)
-    ratio_in_1000_peaks = round(get_expected_observed(number_of_loops,np.mean(peak_size)+ 1000, ref_length, paired_reads, in_1000_peaks),2)
-    ratio_in_2000_peaks = round(get_expected_observed(number_of_loops,np.mean(peak_size)+ 2000, ref_length, paired_reads, in_2000peaks),2)
+    ratio_in_peaks = round(get_expected_observed(number_of_loops,np.mean(peak_size), ref_length, total_no_reads, in_peaks), 2)
+    ratio_in_500_peaks = round(get_expected_observed(number_of_loops,np.mean(peak_size) + 500, ref_length, total_no_reads, in_500_peaks),2)
+    ratio_in_1000_peaks = round(get_expected_observed(number_of_loops,np.mean(peak_size)+ 1000, ref_length, total_no_reads, in_1000_peaks),2)
+    ratio_in_2000_peaks = round(get_expected_observed(number_of_loops,np.mean(peak_size)+ 2000, ref_length, total_no_reads, in_2000_peaks),2)
     
-    total_valid_pairs = paired_reads//2
-    in_peaks_p = round(in_peaks *100.0/total_valid_pairs,2)
-    in_500_peaks_p = round(in_500_peaks *100.0/total_valid_pairs,2)
-    in_1000_peaks_p = round(in_1000_peaks *100.0/total_valid_pairs,2)
-    in_2000_peaks_p = round(in_2000_peaks *100.0/total_valid_pairs,2)
+
+    in_peaks_p = round(in_peaks *100.0/total_no_reads,2)
+    in_500_peaks_p = round(in_500_peaks *100.0/total_no_reads,2)
+    in_1000_peaks_p = round(in_1000_peaks *100.0/total_no_reads,2)
+    in_2000_peaks_p = round(in_2000_peaks *100.0/total_no_reads,2)
+    in_blacklist_p = round(in_blacklist*100.0/total_no_reads,2)
+
     median_peak_size = format(int(np.median(peak_size)),",d")
     mean_peak_size = format(int(np.mean(peak_size)), ",d")
     number_of_loops = format(number_of_loops, ",d")
@@ -89,10 +93,11 @@ if __name__ == "__main__":
     print(f"Total ChIP peaks:\t{number_of_loops}")
     print(f"Mean ChIP peak size:\t{mean_peak_size} bp")
     print(f"Median ChIP peak size:\t{median_peak_size} bp")
-    print(f"Total read pairs in peaks:\t{in_peaks_fmt}({in_peaks_p}%)")
-    print(f"Total read pairs in 500 bp around peaks:\t{in_500_peaks_fmt}({in_500_peaks_p}%)")
-    print(f"Total read pairs in 1000 bp around peaks:\t{in_1000_peaks_fmt}({in_1000_peaks_p}%)")
-    print(f"Total read pairs in 2000 bp around peaks:\t{in_2000_peaks_fmt}({in_2000_peaks_p}%)")
+    print(f"Total reads in blacklist regions:\t{in_blacklist_fmt}({in_blacklist_p}%)")
+    print(f"Total reads  in peaks:\t{in_peaks_fmt}({in_peaks_p}%)")
+    print(f"Total reads in 500 bp around peaks:\t{in_500_peaks_fmt}({in_500_peaks_p}%)")
+    print(f"Total reads in 1000 bp around peaks:\t{in_1000_peaks_fmt}({in_1000_peaks_p}%)")
+    print(f"Total reads in 2000 bp around peaks:\t{in_2000_peaks_fmt}({in_2000_peaks_p}%)")
     print(f"Observed/Expected ratio for reads in peaks:\t{ratio_in_peaks}")
     print(f"Observed/Expected ratio for reads in 500bp around  peaks:\t{ratio_in_500_peaks}")
     print(f"Observed/Expected ratio for reads in 1000bp around  peaks:\t{ratio_in_1000_peaks}")

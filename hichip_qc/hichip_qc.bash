@@ -27,7 +27,6 @@ bam=${prefix}"-PT.bam"
 genome=${prefix}.genome
 ${SRCDIR}/../omni-c_qc.bash ${ref} ${r1fq} ${r2fq} ${prefix}  ${sample} ${cores} > ${TMPOUT}
 
-#rerorder peaks file based on order of chromosomes in reference
 
 
 bedtools sort -g ${genome} -i ${peaks} > ${prefix}_reordered_peaks.bed
@@ -36,6 +35,10 @@ bed=${prefix}"_reordered_peaks.bed"
 
 bed_chr20=${prefix}"_chr20_reordered_peaks.bed"
 grep -w 'chr20' ${bed} > ${bed_chr20}
+
+#find reads in the blacklisted region
+
+bedtools intersect -a ${bam} -b ${SRCDIR}/hg38.blacklist.bed -bed | sort -k4 > ${prefix}_blacklist_intersect.bed 
 
 #compute how many reads intersect with peaks
 bedtools intersect -a ${bam} -b ${bed} -bed | sort -k4 > ${prefix}_peak_intersect.bed &
@@ -61,7 +64,7 @@ python ${SRCDIR}/plot_chip_enrichment.py -bam ${bam} -peaks ${peaks} -output ${p
 #print final stats
 python ${SRCDIR}/count.py -b1  ${prefix}_peak_intersect.bed -b2 ${prefix}_peaks_intersect_500.bed \
 	-b3 ${prefix}_peaks_intersect_1000.bed -b4 ${prefix}_peaks_intersect_2000.bed \
-	-bam ${bam} -peaks ${peaks} >> ${TMPOUT}
+	-b5 ${prefix}_blacklist_intersect.bed -bam ${bam} -peaks ${peaks} >> ${TMPOUT}
 
 python  ${SRCDIR}/make_report.py -i ${TMPOUT} -o ${OUTPUTFILE}
 
