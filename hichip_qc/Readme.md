@@ -63,8 +63,4 @@ Along with these statistics, the QC pipeline will output two plots. The first on
 
 ![ChIP Enrichment Plot ](chip_enrichment_plot.png)
 
-It will also output ChIP fingerprint plot as follows:
-
-![ChIP Fingerprint Plot ](plot_fingerprint.png)
-
 The pipeline also generates bigwig file for coverage tracks inferred from the BAM file in the output directory. 
