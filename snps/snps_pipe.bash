@@ -1,5 +1,9 @@
 #!/usr/bin/env bash 
 
+# NOTE:  Assumes you have put dovetail_tools/snps/ in your path. 
+# e.g. 
+# export PATH=$PATH:/local/ubuntu/src/dovetail_tools/snps/
+#
 
 if [  $# -le 3 ]
 then
@@ -7,6 +11,7 @@ then
         echo "Usage: ./snps_pipe.bash <sample_bam> <output_root> <intervals> <reference>"
         exit 1
 fi
+
 
 # Name of sorted indexed bam file.
 sample_bam=$1
@@ -16,20 +21,19 @@ output_root=$2
 # Typically this would be a confident regions file of some sort, ConfidentRegions.gz
 snpcalling_intervals=$3
 # e.g. GRCh38.p12.fa
-reference = $4
+reference=$4
 
 ################### Call SNPS #######################
 
 output_vcf=${output_root}.vcf
-./hap_caller.bash ${sample_bam} ${output_vcf} ${snpcalling_intervals} ${reference}
+call_snps.bash ${sample_bam} ${output_vcf} ${snpcalling_intervals} ${reference}
 
 
 ################### Filter SNPS #######################
 
 # Create a high confidence SNP file from the intial SNP file
-./get_HQ_region_bed.py -bam ${sample_bam} -bedroot ${output_root}
-bedtools intersect -a ${output_vcf}.gz -b ${output_root}_highconf.bed > ${output_root}_highconf.vcf 
-
+get_HQ_region_bed.py -bam ${sample_bam} -bedroot ${output_root} 
+bedtools intersect -header -a ${output_vcf}.gz -b ${output_root}_highconf.bed > ${output_root}_highconf.vcf 
 bgzip ${output_root}_highconf.vcf
 tabix -p vcf ${output_root}_highconf.vcf.gz
 
@@ -41,7 +45,7 @@ tabix -p vcf ${output_root}_highconf.vcf.gz
 # bed file created above, ${output_root}_highconf.bed and pass that into gatkConcordance as 
 # the interval like: 
 
-# bedtools intersect -a ${snpcalling_intervals} -b ${output_root}_highconf.bed > ConfidentANDOmniConfident.bed 
+# bedtools intersect -a ${snpcalling_intervals} -b ${output_root}_highconf.bed > ConfidentANDOmniConfident.bed
 #gatk Concordance \
 #     -R /local/ref/hg38/GRCh38.p12.fa \
 #     -isr INTERSECTION \
@@ -53,4 +57,4 @@ tabix -p vcf ${output_root}_highconf.vcf.gz
 #     -tpfn ${output_root}_tpfn.vcf
 
 # This will restrict the evaltuion to the confident regions and give you a clearer picture of how good
-# the confident SNP calls probably are compared to a truthset. 
+# the confident SNP calls probably are. 

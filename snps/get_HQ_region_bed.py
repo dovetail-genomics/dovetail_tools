@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import sys,argparse,pysam
+import os,sys,argparse,pysam
 
 # Normally bwa uses the tight read pair gap size distribution to place some 
 # otherwise ambiguously mapped mates of mapped reads.  By nature, 
@@ -21,6 +21,7 @@ def parseArgs(argv):
     parser.add_argument("-bam", required=True,help="Input bam file (indexed sorted)")
     parser.add_argument("-bedroot",required=True,help="Root name for several output files. ")
     parser.add_argument("-qthresh", required=False,type=int,default=0,help="Mapping quality < qthresh regions output")
+    parser.add_argument("-region", required=False, default=None)
     args = parser.parse_args()
     return args   
             
@@ -28,8 +29,8 @@ def main(argv):
     args = parseArgs(argv)
     
     bam = pysam.AlignmentFile(args.bam)
-    with open(f"{args.bedroot}_MQ0.bed") as bout:
-        for r in bam:
+    with open(f"{args.bedroot}_MQ0.bed","w") as bout:
+        for r in bam.fetch(region=args.region):
             if ((r.is_read1) and
                 (not r.is_unmapped) and
                 (not r.mate_is_unmapped) and
@@ -38,18 +39,26 @@ def main(argv):
                 (r.mapping_quality <= args.qthresh)):
                     outstr = f"{r.reference_name}\t{r.reference_start}\t{r.reference_end}\t{r.mapping_quality}"
                     bout.write(outstr+"\n")    
-                            
-    os.system(f"bedtools merge -i {args.bedroot}_MQ0.bed > {args.bedroot}_merged.bed")
+            
+    cmd=f"bedtools merge -i {args.bedroot}_MQ0.bed > {args.bedroot}_merged.bed"
+    print(cmd)
+    os.system(cmd)
     
     # Determine genome contig sizes from the alignment
     sizesfile = f"{args.bam}.stats.txt"
-    os.system(f"samtools idxstats {args.bam} > {sizesfile}")
+    cmd = f"samtools idxstats {args.bam} > {sizesfile}"
+    print(cmd)
+    os.system(cmd)
     
     # Complement LQ bed relative to the genome contigs to get a high confidence bed. 
-    os.system(f"bedtools complement -i {args.bedroot}_merged.bed -g {sizesfile} > {args.bedroot}_highconf.bed")  
+    cmd=f"bedtools complement -i {args.bedroot}_merged.bed -g {sizesfile} > {args.bedroot}_highconf.bed"
+    print(cmd)
+    os.system(cmd)  
 
     # Remove MQ0 file as it's large and unnecessary after merge. 
-    os.system(f"rm -f {args.bedroot}_MQ0.bed")    
+    cmd = f"rm -f {args.bedroot}_MQ0.bed"
+    print(cmd)
+    os.system(cmd)    
     
 if __name__ == "__main__":
     main(sys.argv)

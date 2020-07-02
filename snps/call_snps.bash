@@ -15,13 +15,9 @@ output_vcf=$2
 # Typically this would be a confident regions file of some sort. 
 snpcalling_intervals=$3
 # e.g. /local/ref/hg38/GRCh38.p12.fa
-reference = $4
+reference=$4
 
-# omni hc regions Specify the regions of high quality mapping
-# observed with this alignment to produce a higher confidence SNP
-# output set.   
-
-mkdir -p /local/output/tmp
+mkdir -p ./tmp  
 
 gatk --java-options -Xmx4096m HaplotypeCaller \
      -I $sample_bam \
@@ -33,17 +29,16 @@ gatk --java-options -Xmx4096m HaplotypeCaller \
      --native-pair-hmm-threads 1 \
      --max-alternate-alleles 3 \
      -contamination 0 \
-     --tmp-dir output/tmp/ \
+     --tmp-dir ./tmp/ \
      --min-base-quality-score 0 
 
 bgzip ${output_vcf}.g
 tabix -p vcf ${output_vcf}.g.gz
 
-#     --dbsnp /local/ref/hg38/dbSNP/00-common_all.vcf.gz
 gatk GenotypeGVCFs \
      -R ${reference} \
      -V ${output_vcf}.g.gz \
-     -L $target_interval
+     -L $snpcalling_intervals \
      -O ${output_vcf} -OVI -OVM
 
 bgzip ${output_vcf}
