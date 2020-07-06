@@ -28,11 +28,12 @@ Total read pairs in 5000 bp around peaks:	51,324,571(70.32%)
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-i', help="Input file")
+parser.add_argument('-r', help="r1 fastq")
 parser.add_argument("-o", help="Output file")
 args = parser.parse_args()
 
-header = []
-body = []
+header = ["Library_Name"]
+body = [args.r]
 ofile = open(args.o,'w')
 
 with open(args.i, 'r') as f:
