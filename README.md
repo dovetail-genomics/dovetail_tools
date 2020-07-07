@@ -3,6 +3,8 @@
 
 This repo hosts a shell script (`omni-c_qc.bash`), that can be used to perform quick QC on shallowly sequenced proximity ligation libraries. We align and postprocess the data using the [pipeline](https://data.4dnucleome.org/resources/data-analysis/hi_c-processing-pipeline?redirected_from=%2Fhelp%2Fanalysis-and-visualization%2Fhi_c-processing-pipeline)  recommended by the 4DN consortium.  
 
+These scripts can be used to perform alignments and make contact maps deep alignments also, with acceptable performance, though they have not been optimized for that use. 
+
 ## Requirements
 
 This script depends on the following tools:
