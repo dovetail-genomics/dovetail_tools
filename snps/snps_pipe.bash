@@ -1,5 +1,8 @@
 #!/usr/bin/env bash 
 
+# Exit immediately if any step fails
+set -e
+
 # NOTE:  Assumes you have put dovetail_tools/snps/ in your path. 
 # e.g. 
 # export PATH=$PATH:/local/ubuntu/src/dovetail_tools/snps/
@@ -36,7 +39,6 @@ get_HQ_region_bed.py -bam ${sample_bam} -bedroot ${output_root}
 bedtools intersect -header -a ${output_vcf}.gz -b ${output_root}_highconf.bed > ${output_root}_highconf.vcf 
 bgzip ${output_root}_highconf.vcf
 tabix -p vcf ${output_root}_highconf.vcf.gz
-
 
 
 # Note:  If you want to compute SNP concordance with gatk Concordance you will
