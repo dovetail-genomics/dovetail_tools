@@ -3,7 +3,8 @@
 
 Snps can be called with the included scripts like: 
 
-```snps_pipe.bash sample.bam outdir/rootname ConfidentRegions.bed.gz GRCh38.p12.fa 
+```
+snps_pipe.bash sample.bam outdir/rootname ConfidentRegions.bed.gz GRCh38.p12.fa 
 ```
 
 Where 'rootname' is the root name for all the output files and ConfidentRegions.bed is a file describing the intervals over which SNPs should be called.  
