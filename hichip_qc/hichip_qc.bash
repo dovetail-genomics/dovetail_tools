@@ -69,4 +69,4 @@ python ${SRCDIR}/count.py -b1  ${prefix}_peak_intersect.bed -b2 ${prefix}_peaks_
 python  ${SRCDIR}/make_report.py -i ${TMPOUT} -r  ${r1fq} -o ${OUTPUTFILE}
 
 rm ${prefix}_reordered_peaks.bed  ${bed_chr20}  ${prefix}_peak_intersect.bed ${prefix}_peaks_intersect_500.bed \
-	${prefix}_peaks_intersect_1000.bed ${prefix}_peaks_intersect_2000.bed ${prefix}_counts.tab ${TMPOUT}
+	${prefix}_peaks_intersect_1000.bed ${prefix}_peaks_intersect_2000.bed ${TMPOUT}
