@@ -33,3 +33,9 @@ To phase variants, we use HapCUT2 phasing program. The wrapper script to run for
 
 
 Note that `<vcf>` file here should NOT be gzipped as HapCUT2 requires unzipped VCF file. This script will first filter input VCF to contain just signel or biallelic variants as HapCUT2 operataes only on these types of variants. The output of the script is `<output_prefix>_hapcut_output.phased.VCF.gz` file that contains phased variants. 
+
+The phasing can be evaluated if the ground truth is known. This can be done with `phasing_eval.sh` script. You can do this as follow: 
+
+```
+./phasing_eval.sh <output_vcf.gz> <truth_vcf.gz> <output_prefix>
+```
