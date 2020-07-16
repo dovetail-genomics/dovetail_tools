@@ -44,23 +44,23 @@ Mapped nondupe pairs cis >1000bp  : 19,996,862
 Mapped nondupe pairs cis >10000bp : 6,399,456
 Mapped nondupe trans pairs        : 10,991,846
 Expected unique pairs at 300M sequencing:  217914791.5
-Total ChIP peaks:       31,165
-Mean ChIP peak size:    294 bp
+Total ChIP peaks:       38,947
+Mean ChIP peak size:    305 bp
 Median ChIP peak size:  350 bp
-Total read pairs in peaks:      1,392,100(1.9%)
-Total read pairs in 500 bp around peaks:        10,715,437(14.66%)
-Total read pairs in 1000 bp around peaks:       18,834,017(25.76%)
-Total read pairs in 2000 bp around peaks:       31,470,568(43.05%)
-Total read pairs in 5000 bp around peaks:       51,501,793(70.44%)
+Total reads in blacklist regions:       55,612(0.04%)
+Total reads  in peaks:  7,746,420(5.33%)
+Total reads in 500 bp around peaks:     14,328,101(9.85%)
+Total reads in 1000 bp around peaks:    19,221,132(13.22%)
+Total reads in 2000 bp around peaks:    27,841,150(19.15%)
+Observed/Expected ratio for reads in peaks:     13.82
+Observed/Expected ratio for reads in 500bp around  peaks:       9.7
+Observed/Expected ratio for reads in 1000bp around  peaks:      8.03
+Observed/Expected ratio for reads in 2000bp around  peaks:      6.59
 ```
 
 Along with these statistics, the QC pipeline will output two plots. The first one is for the coverage enrichent around ChIP peaks. It would look as follows
 
 
 ![ChIP Enrichment Plot ](chip_enrichment_plot.png)
-
-It will also output ChIP fingerprint plot as follows:
-
-![ChIP Fingerprint Plot ](plot_fingerprint.png)
 
 The pipeline also generates bigwig file for coverage tracks inferred from the BAM file in the output directory. 
