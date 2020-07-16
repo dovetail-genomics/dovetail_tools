@@ -15,7 +15,8 @@ import subprocess as sp
 from cosmos.api import Cosmos
 
 #dbsnp='/ref/hg38/dbSNP/00-common_all.vcf.gz'
-dbsnp='/home/ubuntu/prj/snpexample/ref/hg38/dbSNP/00-common_all.vcf.gz'
+dbsnp=None
+#'/home/ubuntu/prj/snpexample/ref/hg38/dbSNP/00-common_all.vcf.gz'
 #dbsnp='/ref/dbsnp_146.hg38.vcf.gz'
 biallelic_vcf="/ref/truthSets/population_biallelic_snvs/COLO829BL_population_biallelic.vcf.gz"
 
@@ -155,7 +156,6 @@ def split_to_intervals(ref, interval_list, intervals=None, window=0):
         return split_intervals_byNs(ref, interval_list)
     else:
         return split_intervals_byWindow(ref, interval_list, window)
-    
 
 '''
     ----------------------    
@@ -805,9 +805,13 @@ if __name__=="__main__":
     parser.add_argument('-clean','--clean',  required=False, action='store_true', help='Removes split vcf files')
     parser.add_argument('-vqsr', required=False, action='store_true')
     parser.add_argument('-t','--max_cores', required=False, default=16, type=int)
+    parser.add_argument('-dbsnp',required=True,"DB SNP known variants for base recalibration.")
     parser.add_argument('-drm', required=False, default="slurm")
     args = parser.parse_args()
 
+    global dbsnp # Sorry... retrofitting someone else's code, a bigger refactor is needed. 
+    dbsnp=args.dbsnp
+    
     # create output directory
     os.system('mkdir -p %s' % args.out_dir)
     
