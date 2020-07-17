@@ -1,11 +1,10 @@
 #!/bin/bash
 
 
-if [  $# -le 5]
+if [ $# -le 5 ]
 then
         echo "Too few arguments. Please provide all the required arguments."
-        echo "Usage: ./make_hq_region.sh <reference> <truth_snps.vcf.gz> <called_snps.vcf.gz> <high_confident_regions.bed>\
-	       	<output_directory> <output_prefix>"
+        echo "Usage: ./make_hq_region.sh <reference> <truth_snps.vcf.gz> <called_snps.vcf.gz> <high_confident_regions.bed> <output_directory> <output_prefix>"
         exit 1
 fi
 
