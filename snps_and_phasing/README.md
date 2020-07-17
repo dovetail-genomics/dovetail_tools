@@ -9,26 +9,6 @@ DOVETOOLS=/home/ubuntu/src/dovetail_tools/
 LIB_NAME=LM979
 ```
 
-A .json file is expected in:
-
-```
-${ROOT}/${LIB_NAME}.json
-```
-
-which points to the bam file, like so:
-
-```
-{
-    "germline":[
-        {
-            "bams":[
-             "/home/ubuntu/prj/snpexample/bam/LM979.bam"
-            ]
-        }
-    ]
-}
-```
-
 The directory, here snpexample, will need to contain the following genome reference files (or symlinks to them):
 
 ```
