@@ -1,0 +1,9 @@
+{
+    "germline":[
+        {
+            "bams":[
+             "/home/ubuntu/prj/snpexample/bam/LM979.bam"
+            ]
+        }
+    ]
+}
