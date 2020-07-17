@@ -3,21 +3,21 @@
 
 SNPs can be called by editing the makefile to point to a base directory that contains the snp resources and a directory that contains dovetail_tools
 
-'''
+```
 ROOT=/home/ubuntu/prj/snpexample/
 DOVETOOLS=/home/ubuntu/src/dovetail_tools/
 LIB_NAME=LM979
-'''
+```
 
 A .json file is expected in:
 
-'''
+```
 ${ROOT}/${LIB_NAME}.json
-'''
+```
 
 which points to the bam file, like so:
 
-'''
+```
 {
     "germline":[
         {
@@ -27,17 +27,17 @@ which points to the bam file, like so:
         }
     ]
 }
-'''
+```
 
 The directory, here snpexample, will need to contain the following genome reference files (or symlinks to them):
 
-'''
+```
 snpexample/ref/hg38/GRCh38.p12.fa
 snpexample/ref/hg38/GRCh38.p12.fa.fai
 snpexample/ref/hg38/GRCh38.p12.fa.sizes
 snpexample/ref/hg38/dbSNP/00-common_all.vcf.gz
 snpexample/ref/hg38/dbSNP/00-common_all.vcf.gz.tbi
-'''
+```
 
 Where the fasta file is the reference fasta file and the vcfs under dbSNP are the commonly occurring SNPs from dbSNP.  
 
