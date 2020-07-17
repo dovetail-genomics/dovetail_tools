@@ -41,6 +41,32 @@ snpexample/ref/hg38/dbSNP/00-common_all.vcf.gz.tbi
 
 Where the fasta file is the reference fasta file and the vcfs under dbSNP are the commonly occurring SNPs from dbSNP.  
 
+To filter low quality regions a ConfidentRegions.bed.gz is expected in:
+
+```
+snpexample/truthset/ConfidentRegions.bed.gz
+snpexample/truthset/NA12878.vcf.gz
+```
+
+The locations and names of these files can be altered in the included makefile. The max cpus allowed can also be edited in the makefile. To call snps, set up these files and then do:
+
+```
+make all
+```
+
+Or to run each step separately:
+
+```
+make snp_pipe
+make hqregion
+make concordance
+```
+
+
+
+
+
+
 
 This snp pipeline  produces a raw set of snps and a separate high confidence set of snps.  High confident snps are snps that fall in regions where there are no MQ=0 aligned reads.  Some regions that are confident regions for shotgun are not confident regions for OmniC because the pair size distribution of *-C data is very broad and some mates whose placements could be disambiguated by bwa with shotgun data can not be disambiguated with *-C data.   A modified version of bwa, or some post-processing, might be able to constrain some of these mates based on the broader Omni-C pair size distribution but for now we just identify these difficult regions and exclude them from the results. 
 
