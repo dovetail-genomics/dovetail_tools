@@ -46,7 +46,7 @@ def main(argv):
     
     # Determine genome contig sizes from the alignment
     sizesfile = f"{args.bam}.stats.txt"
-    cmd = f"samtools idxstats {args.bam} > {sizesfile}"
+    cmd = f"samtools idxstats {args.bam} | grep -v '*' > {sizesfile}"
     print(cmd)
     os.system(cmd)
     
