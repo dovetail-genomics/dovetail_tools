@@ -4,16 +4,13 @@ ROOT=/home/ubuntu/prj/snpexample/
 DOVETOOLS=/home/ubuntu/src/dovetail_tools/
 LIB_NAME=LM979
 
-# ${LIB_NAME}.json contains a path to the BAM file. 
-
-# -t is number of cpus.  
-# Whole genome takes about four hours with 62 cpus. 
 snp_pipe:
-	${DOVETOOLS}/snps/snps_pipeline.py -I ${ROOT}/${LIB_NAME}.json \
+	${DOVETOOLS}/snps/snps_pipeline.py -B ${ROOT}/${LIB_NAME}.bam \
 	-O ${ROOT}/snpoutput \
 	-R ${ROOT}/ref/hg38/GRCh38.p12.fa \
-	-L ${ROOT}/misc/ACGT_intervals_NoY.txt \
-	-t 62 -drm local
+	-L ${ROOT}/misc/hg38_intervals.txt \
+	-dbsnp ${ROOT}/ref/hg38/dbSNP/00-common_all.vcf.gz \
+	-t 1 
 
 hqregion: 
 	${DOVETOOLS}/snps/get_HQ_region_bed.py -bam ${ROOT}/bam/${LIB_NAME}.bam -bedroot ${ROOT}/snpoutput/${LIB_NAME}
