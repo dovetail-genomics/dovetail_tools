@@ -1,6 +1,6 @@
 
 # Calling SNPs with OmniC data
-
+<!---
 SNPs can be called by editing the makefile to point to a base directory that contains the snp resources and a directory that contains dovetail_tools
 
 ```
@@ -50,7 +50,7 @@ make concordance
 
 This snp pipeline  produces a raw set of snps and a separate high confidence set of snps.  High confident snps are snps that fall in regions where there are no MQ=0 aligned reads.  Some regions that are confident regions for shotgun are not confident regions for OmniC because the pair size distribution of *-C data is very broad and some mates whose placements could be disambiguated by bwa with shotgun data can not be disambiguated with *-C data.   A modified version of bwa, or some post-processing, might be able to constrain some of these mates based on the broader Omni-C pair size distribution but for now we just identify these difficult regions and exclude them from the results. 
 
- 
+ -->
 # Phasing SNPs with Omni-C data 
 ## Environment
 
