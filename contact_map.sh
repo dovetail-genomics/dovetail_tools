@@ -47,3 +47,9 @@ cooler cload pairix \
 
 #generate multi-resolution cooler file from 1kb resolution cooler file
 cooler zoomify --balance -p ${cores}  ${prefix}.cool
+
+zcat ${pairs} | \
+	grep -v '#' | \
+	grep "UU" | \
+	awk -F"\t" '{print $1"\t"$2"\t"$3"\t"$6"\t"$4"\t"$5"\t"$7}' | \
+	gzip -c > ${prefix}.hicpro.valid.pairs.gz
