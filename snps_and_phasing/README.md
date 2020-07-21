@@ -1,7 +1,7 @@
 
 # Calling SNPs with OmniC data
 
-To call SNPs, you can run `snp_pipeline.py` script as follows:
+Before you run SNP analysis, make sure you have conda environment set up from the yaml file in the `conda` folder. To call SNPs, you can run `snp_pipeline.py` script as follows:
 
 ```
 usage: snps_pipeline.py [-h] -B BAM -O OUT_DIR -R REF -L INTERVALS -dbsnp
