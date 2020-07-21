@@ -90,4 +90,4 @@ After you run the alignments, you can use the `pairs.gz` file from the output to
 ./contact_map.sh <pair.gz file> <reference_fasta> <output_prefix> <num_cores>
 ```
 
-This will generate 3 files: `Sample.hic` - Hi-C contact map in .hic format, `Sample.cool` - Hi-C contact map at 1kb resolution in cool format, and `Sample.mcool` - Hi-C contact map at multiple resolutions in mcool format. 
+This will generate 3 files: `Sample.hic` - Hi-C contact map in .hic format, `Sample.cool` - Hi-C contact map at 1kb resolution in cool format, and `Sample.mcool` - Hi-C contact map at multiple resolutions in mcool format. This will also generate `Sample.hicpro.valid.pairs.gz` file that is in the same format as HiCPro outputs and is compatible with several downstream tools. 
