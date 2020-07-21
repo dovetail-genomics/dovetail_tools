@@ -12,8 +12,10 @@ parser$add_argument("--start", type="integer", help="Start of the region")
 parser$add_argument("--end", type="integer", help="End of the region")
 parser$add_argument('--prefix', help='Output Prefix')
 
-args <- parser$parse_args(c("--bg", "--cool", "--prefix"))
+#args <- parser$parse_args(c("--bg", "--cool", "--chrom", "--start", "--end", "--prefix"))
+#accumulate_fn <- get(args$accumulate)
 
+args <- parser$parse_args()
 
 cov <- read.table(args$bg)
 arc <- read.table(args$cool)
@@ -27,17 +29,23 @@ chrom = args$chrom
 chromstart = args$start
 chromend = args$end
 
+
+layout(matrix(c(1, 2),2,1, byrow=TRUE))
+par(mgp=c(3,.3,0))
+
+par(mar=c(3,4,2,2))
 plotBedgraph(cov,chrom,chromstart,chromend)
 labelgenome(chrom,chromstart,chromend,n=4,scale="Mb")
 mtext("Read Depth",side=2,line=1.75,cex=1,font=2)
 axis(side=2,las=2,tcl=.2)
 
+par(mar=c(3,4,2,2))
 plotBedpe(arc,chrom,chromstart,chromend,heights = arc$V8,plottype="loops", flip=TRUE)
 labelgenome(chrom, chromstart,chromend,side=3, n=3,scale="Mb")
 axis(side=2,las=2,tcl=.2) 
 mtext("distance",side=2,line=1.75,cex=.75,font=2)
 
-pdfname <- paste(args$prefix,".hichip.cov.arcs.pdf")
+pdfname <- paste0(args$prefix,".hichip.cov.arcs.pdf")
 makepdf = TRUE
 if(makepdf==TRUE)
 {
