@@ -2,7 +2,7 @@
 
 if [  $# -le 3 ]
 then
-        echo "Too few arguments. Please provide all the required arguments."
+        echo "Too few arguments. Please provide required arguments."
         echo "Usage: ./hap_caller.bash <sample_bam> <output_vcf> <intervals> <reference>"
         exit 1
 fi
