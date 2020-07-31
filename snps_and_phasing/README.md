@@ -33,7 +33,7 @@ The GIAB confident region bed file for shotgun data can be obtained from here: h
 
 To evaluate SNPs against the truthset, you can use `snp_concordance.sh` script as follows:
 ```
-./make_hq_region.sh <reference> <truth_snps.vcf.gz> <called_snps.vcf.gz> <high_confident_regions.bed> <output_directory> <output_prefix>
+./snp_concordance.sh <reference> <truth_snps.vcf.gz> <called_snps.vcf.gz> <high_confident_regions.bed> <output_directory> <output_prefix>
 ```
 
 Here, for the `<high_confident_regions.bed>` option, use the bed file obtained from the `make-hq_region.sh` script and use the filtered VCF file for `<called_snps.vcf.gz>` option. 
