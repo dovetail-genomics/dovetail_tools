@@ -25,7 +25,6 @@ chrlength="${prefix}.genome"
 #convert the pairs  file into juicer compatible text file.
 zcat ${pairs} \
 	| grep -v "#" \
-	| grep "UU" \
 	| awk '{print "1\t"$2"\t"$3"\t1\t0\t"$4"\t"$5"\t0"}' \
 	| awk '{if ($2 > $6) {print $1"\t"$6"\t"$7"\t"$8"\t"$5"\t"$2"\t"$3"\t"$4} else {print}}' \
 	| sort -k2,2d -k6,6d  --parallel=${cores} > ${prefix}_juicer_alignments.txt
@@ -50,6 +49,5 @@ cooler zoomify --balance -p ${cores}  ${prefix}.cool
 
 zcat ${pairs} | \
 	grep -v '#' | \
-	grep "UU" | \
 	awk -F"\t" '{print $1"\t"$2"\t"$3"\t"$6"\t"$4"\t"$5"\t"$7}' | \
 	gzip -c > ${prefix}.hicpro.valid.pairs.gz
