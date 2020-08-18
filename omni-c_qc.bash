@@ -30,11 +30,21 @@ bwa mem -5SP -T0 -t${cores} \
     $ref \
     $fq1 \
     $fq2 \
-| pairtools parse --chroms-path ${genome}\
-| pairtools sort  --nproc ${cores} \
-| pairtools dedup --nproc-in ${cores} --nproc-out ${cores} --mark-dups  \
- 	--output-stats ${outprefix}-PT.stats.txt --output-dups - \
-| pairtools split --nproc-in ${cores} --nproc-out ${cores} \
+| pairtools parse \
+	--chroms-path ${genome} \
+	--min-mapq 40 \
+	--walks-policy 5unique \
+	--max-inter-align-gap 30 \
+      	--nproc-in ${cores} --nproc-out ${cores} \
+| pairtools sort  \
+	--nproc ${cores} \
+| pairtools dedup \
+	--nproc-in ${cores} --nproc-out ${cores} \
+	--mark-dups  \
+ 	--output-stats ${outprefix}-PT.stats.txt \
+	--output-dups - \
+| pairtools split \
+	--nproc-in ${cores} --nproc-out ${cores} \
 	--output-pairs ${outprefix}.PT.pairs.gz  \
 	--output-sam - \
 | ${SRCDIR}/add_mate_MQ.py \
