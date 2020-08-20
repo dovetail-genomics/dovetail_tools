@@ -31,31 +31,18 @@ Example:
 This will print output as follows: 
 
 ```
-Mapping Quality Threshold         : 40
-Read1                             : 70,958,590
-Read2                             : 70,868,593
-Mapped pairs                      : 70,958,590
-PCR dupe pairs                    : 8,852,388
-Mapped nondupe pairs              : 62,106,202
-Valid Pairs (cis>1000bp + trans)  : 30,988,708
-Mapped nondupe pairs cis          : 51,114,356
-Mapped nondupe pairs cis <=1000bp : 31,117,494
-Mapped nondupe pairs cis >1000bp  : 19,996,862
-Mapped nondupe pairs cis >10000bp : 6,399,456
-Mapped nondupe trans pairs        : 10,991,846
-Expected unique pairs at 300M sequencing:  217914791.5
-Total ChIP peaks:       38,947
-Mean ChIP peak size:    305 bp
-Median ChIP peak size:  350 bp
-Total reads in blacklist regions:       55,612(0.04%)
-Total reads  in peaks:  7,746,420(5.33%)
-Total reads in 500 bp around peaks:     14,328,101(9.85%)
-Total reads in 1000 bp around peaks:    19,221,132(13.22%)
-Total reads in 2000 bp around peaks:    27,841,150(19.15%)
-Observed/Expected ratio for reads in peaks:     13.82
-Observed/Expected ratio for reads in 500bp around  peaks:       9.7
-Observed/Expected ratio for reads in 1000bp around  peaks:      8.03
-Observed/Expected ratio for reads in 2000bp around  peaks:      6.59
+Total ChIP peaks                                           38,947
+Mean ChIP peak size                                        305 bp
+Median ChIP peak size                                      305 bp
+Total reads in blacklist regions                           74,811      0.04%
+Total reads  in peaks                                      14,318,817  6.79%
+Total reads in 500 bp around peaks                         24,251,334  11.5%
+Total reads in 1000 bp around peaks                        31,391,169  14.88%
+Total reads in 2000 bp around peaks                        43,795,466  20.76%
+Observed/Expected ratio for reads in peaks                 17.6
+Observed/Expected ratio for reads in 500bp around          11.31
+Observed/Expected ratio for reads in 1000bp around  peaks  9.04
+Observed/Expected ratio for reads in 2000bp around  peaks  7.14
 ```
 
 Along with these statistics, the QC pipeline will output two plots. The first one is for the coverage enrichent around ChIP peaks. It would look as follows
