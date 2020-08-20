@@ -42,19 +42,17 @@ Substitute appropriate file names. READGROUP name is arbitrary.
 After the script completes, it will print:
 
 ```
-Mapping Quality Threshold         : 40
-Read1                             : 4505616
-Read2                             : 4440232
-Mapped pairs                      : 3915274
-PCR dupe pairs                    : 9847
-Mapped nondupe pairs              : 3905427
-Valid Pairs (cis>1000bp + trans)  : 3517577
-Mapped nondupe pairs cis          : 3289426
-Mapped nondupe pairs cis <=1000bp : 387850
-Mapped nondupe pairs cis >1000bp  : 2901576
-Mapped nondupe pairs cis >10000bp : 2157962
-Mapped nondupe trans pairs        : 616001
-Expected unique pairs at 300M sequencing:  269101956.2
+Total Read Pairs                          122,577,758  100%
+Unmapped Read Pairs                       4,657,163    3.8%
+Mapped Read Pairs                         105,473,343  86.05%
+PCR Dup Read Pairs                        13,878,948   11.32%
+No-Dup Read Pairs                         91,594,395   74.72%
+No-Dup Cis Read Pairs                     73,881,565   80.66%
+No-Dup Trans Read Pairs                   17,712,830   19.34%
+No-Dup Cis Read Pairs < 1kb               44,790,006   48.9%
+No-Dup Cis Read Pairs >= 1kb              29,091,559   31.76%
+No-Dup Cis Read Pairs >= 10kb             10,364,199   11.32%
+Expected unique pairs at 300M sequencing  241,918,170  NA
 ```
 
 We consider a library prepared from a **mammalian** sample to be acceptable if:
