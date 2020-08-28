@@ -42,17 +42,18 @@ Substitute appropriate file names. READGROUP name is arbitrary.
 After the script completes, it will print:
 
 ```
-Total Read Pairs                          122,577,758  100%
-Unmapped Read Pairs                       4,657,163    3.8%
-Mapped Read Pairs                         105,473,343  86.05%
-PCR Dup Read Pairs                        13,878,948   11.32%
-No-Dup Read Pairs                         91,594,395   74.72%
-No-Dup Cis Read Pairs                     73,881,565   80.66%
-No-Dup Trans Read Pairs                   17,712,830   19.34%
-No-Dup Cis Read Pairs < 1kb               44,790,006   48.9%
-No-Dup Cis Read Pairs >= 1kb              29,091,559   31.76%
-No-Dup Cis Read Pairs >= 10kb             10,364,199   11.32%
-Expected unique pairs at 300M sequencing  241,918,170  NA
+Total Read Pairs                              122,577,758  100%
+Unmapped Read Pairs                           4,657,163    3.8%
+Mapped Read Pairs                             105,473,343  86.05%
+PCR Dup Read Pairs                            13,878,948   11.32%
+No-Dup Read Pairs                             91,594,395   74.72%
+No-Dup Cis Read Pairs                         73,881,565   80.66%
+No-Dup Trans Read Pairs                       17,712,830   19.34%
+No-Dup Valid Read Pairs (cis >= 1kb + trans)  46,804,389   51.1%
+No-Dup Cis Read Pairs < 1kb                   44,790,006   48.9%
+No-Dup Cis Read Pairs >= 1kb                  29,091,559   31.76%
+No-Dup Cis Read Pairs >= 10kb                 10,364,199   11.32%
+Expected unique pairs at 300M sequencing      241,918,170  N
 ```
 
 We consider a library prepared from a **mammalian** sample to be acceptable if:
