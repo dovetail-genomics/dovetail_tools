@@ -53,7 +53,7 @@ No-Dup Valid Read Pairs (cis >= 1kb + trans)  46,804,389   51.1%
 No-Dup Cis Read Pairs < 1kb                   44,790,006   48.9%
 No-Dup Cis Read Pairs >= 1kb                  29,091,559   31.76%
 No-Dup Cis Read Pairs >= 10kb                 10,364,199   11.32%
-Expected unique pairs at 300M sequencing      241,918,170  N
+Expected unique pairs at 300M sequencing      241,918,170  NA
 ```
 
 We consider a library prepared from a **mammalian** sample to be acceptable if:
