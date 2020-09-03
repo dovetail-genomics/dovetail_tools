@@ -3,6 +3,7 @@
 import argparse
 import pysam
 import numpy as np
+from tabulate import tabulate
 
 def get_read_count(bedfile):
     count = 0
@@ -89,16 +90,18 @@ if __name__ == "__main__":
     median_peak_size = format(int(np.median(peak_size)),",d")
     mean_peak_size = format(int(np.mean(peak_size)), ",d")
     number_of_loops = format(number_of_loops, ",d")
-    
-    print(f"Total ChIP peaks:\t{number_of_loops}")
-    print(f"Mean ChIP peak size:\t{mean_peak_size} bp")
-    print(f"Median ChIP peak size:\t{median_peak_size} bp")
-    print(f"Total reads in blacklist regions:\t{in_blacklist_fmt}({in_blacklist_p}%)")
-    print(f"Total reads  in peaks:\t{in_peaks_fmt}({in_peaks_p}%)")
-    print(f"Total reads in 500 bp around peaks:\t{in_500_peaks_fmt}({in_500_peaks_p}%)")
-    print(f"Total reads in 1000 bp around peaks:\t{in_1000_peaks_fmt}({in_1000_peaks_p}%)")
-    print(f"Total reads in 2000 bp around peaks:\t{in_2000_peaks_fmt}({in_2000_peaks_p}%)")
-    print(f"Observed/Expected ratio for reads in peaks:\t{ratio_in_peaks}")
-    print(f"Observed/Expected ratio for reads in 500bp around  peaks:\t{ratio_in_500_peaks}")
-    print(f"Observed/Expected ratio for reads in 1000bp around  peaks:\t{ratio_in_1000_peaks}")
-    print(f"Observed/Expected ratio for reads in 2000bp around  peaks:\t{ratio_in_2000_peaks}")
+   
+    table = []
+    table.append(["Total ChIP peaks", number_of_loops])
+    table.append(["Mean ChIP peak size", f"{mean_peak_size} bp"])
+    table.append(["Median ChIP peak size", f"{mean_peak_size} bp"])
+    table.append(["Total reads in blacklist regions", f"{in_blacklist_fmt}", f"{in_blacklist_p}%"])
+    table.append(["Total reads  in peaks", f"{in_peaks_fmt}", f"{in_peaks_p}%"])
+    table.append(["Total reads in 500 bp around peaks", in_500_peaks_fmt, f"{in_500_peaks_p}%"])
+    table.append(["Total reads in 1000 bp around peaks", in_1000_peaks_fmt, f"{in_1000_peaks_p}%"])
+    table.append(["Total reads in 2000 bp around peaks", in_2000_peaks_fmt, f"{in_2000_peaks_p}%"])
+    table.append(["Observed/Expected ratio for reads in peaks", ratio_in_peaks])
+    table.append(["Observed/Expected ratio for reads in 500bp around", ratio_in_500_peaks])
+    table.append(["Observed/Expected ratio for reads in 1000bp around  peaks", ratio_in_1000_peaks])
+    table.append(["Observed/Expected ratio for reads in 2000bp around  peaks", ratio_in_2000_peaks])
+    print(tabulate(table,tablefmt="plain"))
