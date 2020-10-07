@@ -3,6 +3,7 @@
 import argparse
 import pysam
 import numpy as np
+import pandas as pd
 from tabulate import tabulate
 
 def get_read_count(bedfile):
@@ -27,26 +28,23 @@ def get_expected_observed(num_peaks, window_size, ref_length, reads_total, reads
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('-b1',help="bedfile1")
-    parser.add_argument('-b2',help="bedfile2")
-    parser.add_argument('-b3',help="bedfile3")
-    parser.add_argument('-b4',help="bedfile4")
-    parser.add_argument('-b5', help='bedfile5')
+    parser.add_argument('-b1',help="bedfile1") #100bp 
+    parser.add_argument('-b2',help="bedfile2") #200bp
+    parser.add_argument('-b3',help="bedfile3") #500bp
+    parser.add_argument('-b4',help="bedfile3")
     parser.add_argument('-peaks',help="input peaks")
     parser.add_argument('-bam',help="bamfile")
     args = parser.parse_args()
     
 
-    in_peaks = get_read_count(args.b1)
-    in_500_peaks = get_read_count(args.b2)
-    in_1000_peaks = get_read_count(args.b3)
-    in_2000_peaks = get_read_count(args.b4)
-    in_blacklist = get_read_count(args.b5)
+    in_100_peaks = get_read_count(args.b1)
+    in_200_peaks = get_read_count(args.b2)
+    in_500_peaks = get_read_count(args.b3)
+    in_blacklist = get_read_count(args.b4)
 
-    in_peaks_fmt = format(in_peaks,",d")
+    in_100_peaks_fmt = format(in_100_peaks,",d")
+    in_200_peaks_fmt = format(in_200_peaks,",d")
     in_500_peaks_fmt = format(in_500_peaks,",d")
-    in_1000_peaks_fmt = format(in_1000_peaks,",d")
-    in_2000_peaks_fmt = format(in_2000_peaks,",d")
     in_blacklist_fmt = format(in_blacklist,",d")
 
     bamfile = pysam.AlignmentFile(args.bam,'rb')
@@ -75,16 +73,14 @@ if __name__ == "__main__":
             total_no_reads += 1
 
     
-    ratio_in_peaks = round(get_expected_observed(number_of_loops,np.mean(peak_size), ref_length, total_no_reads, in_peaks), 2)
-    ratio_in_500_peaks = round(get_expected_observed(number_of_loops,np.mean(peak_size) + 500, ref_length, total_no_reads, in_500_peaks),2)
-    ratio_in_1000_peaks = round(get_expected_observed(number_of_loops,np.mean(peak_size)+ 1000, ref_length, total_no_reads, in_1000_peaks),2)
-    ratio_in_2000_peaks = round(get_expected_observed(number_of_loops,np.mean(peak_size)+ 2000, ref_length, total_no_reads, in_2000_peaks),2)
+    ratio_in_100_peaks = round(get_expected_observed(number_of_loops,100, ref_length, total_no_reads, in_100_peaks), 2)
+    ratio_in_200_peaks = round(get_expected_observed(number_of_loops,200, ref_length, total_no_reads, in_200_peaks),2)
+    ratio_in_500_peaks = round(get_expected_observed(number_of_loops,500, ref_length, total_no_reads, in_500_peaks),2)
     
 
-    in_peaks_p = round(in_peaks *100.0/total_no_reads,2)
+    in_100_peaks_p = round(in_100_peaks *100.0/total_no_reads,2)
+    in_200_peaks_p = round(in_200_peaks *100.0/total_no_reads,2)
     in_500_peaks_p = round(in_500_peaks *100.0/total_no_reads,2)
-    in_1000_peaks_p = round(in_1000_peaks *100.0/total_no_reads,2)
-    in_2000_peaks_p = round(in_2000_peaks *100.0/total_no_reads,2)
     in_blacklist_p = round(in_blacklist*100.0/total_no_reads,2)
 
     median_peak_size = format(int(np.median(peak_size)),",d")
@@ -94,14 +90,12 @@ if __name__ == "__main__":
     table = []
     table.append(["Total ChIP peaks", number_of_loops])
     table.append(["Mean ChIP peak size", f"{mean_peak_size} bp"])
-    table.append(["Median ChIP peak size", f"{mean_peak_size} bp"])
+    table.append(["Median ChIP peak size", f"{median_peak_size} bp"])
     table.append(["Total reads in blacklist regions", f"{in_blacklist_fmt}", f"{in_blacklist_p}%"])
-    table.append(["Total reads  in peaks", f"{in_peaks_fmt}", f"{in_peaks_p}%"])
-    table.append(["Total reads in 500 bp around peaks", in_500_peaks_fmt, f"{in_500_peaks_p}%"])
-    table.append(["Total reads in 1000 bp around peaks", in_1000_peaks_fmt, f"{in_1000_peaks_p}%"])
-    table.append(["Total reads in 2000 bp around peaks", in_2000_peaks_fmt, f"{in_2000_peaks_p}%"])
-    table.append(["Observed/Expected ratio for reads in peaks", ratio_in_peaks])
-    table.append(["Observed/Expected ratio for reads in 500bp around", ratio_in_500_peaks])
-    table.append(["Observed/Expected ratio for reads in 1000bp around  peaks", ratio_in_1000_peaks])
-    table.append(["Observed/Expected ratio for reads in 2000bp around  peaks", ratio_in_2000_peaks])
+    table.append(["Total reads in 100 bp around summits", f"{in_100_peaks_fmt}", f"{in_100_peaks_p}%"])
+    table.append(["Total reads in 200 bp around summits", in_200_peaks_fmt, f"{in_200_peaks_p}%"])
+    table.append(["Total reads in 500 bp around summits", in_500_peaks_fmt, f"{in_500_peaks_p}%"])
+    table.append(["Observed/Expected ratio for reads in 100 bp around summits", ratio_in_100_peaks])
+    table.append(["Observed/Expected ratio for reads in 200 bp around summits", ratio_in_200_peaks])
+    table.append(["Observed/Expected ratio for reads in 500 bp around summits", ratio_in_500_peaks])
     print(tabulate(table,tablefmt="plain"))
